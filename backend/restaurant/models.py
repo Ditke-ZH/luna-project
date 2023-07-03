@@ -1,30 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from user.models import User
+from category.models import Category
 
 # Create your models here.
 PRICE_LEVEL_CHOICES = [
     (1, '$'),
     (2, '$$'),
     (3, '$$$'),
-]
-
-CATEGORY_CHOICES = [
-    (1, "American"),
-    (2, "British"),
-    (3, "Chinese"),
-    (4, "Egyptian"),
-    (5, "French"),
-    (6, "German"),
-    (7, "Greek"),
-    (8, "Hungarian"),
-    (9, "Indian"),
-    (10, "Italian"),
-    (11, "Japanese"),
-    (12, "Mexican"),
-    (13, "Spanish"),
-    (14, "Swiss"),
-    (15, "Turkish")
 ]
 
 
@@ -34,7 +17,6 @@ def user_directory_path(instance, filename):
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
-    category = models.IntegerField(choices=CATEGORY_CHOICES, default=1, verbose_name="category")
     country = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
