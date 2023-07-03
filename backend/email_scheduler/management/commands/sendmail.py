@@ -11,21 +11,23 @@ class Command(BaseCommand):
     help = 'This command will send emails that are due. Usually executed every 10 seconds by cron!'
 
     def handle(self, *args, **options):
-        emails = EmailScheduler.objects.filter(sent_date=None, scheduled_date__lte=timezone.now())
+        while True:
+            time.sleep(10)
+            emails = EmailScheduler.objects.filter(sent_date=None, scheduled_date__lte=timezone.now())
 
-        for email in emails:
-            subject = email.subject
-            message = email.message
-            from_email = email.from_email
-            recipient_list_text = email.recipient_list
-            recipient_list = [x.strip() for x in recipient_list_text.split(';')]
+            for email in emails:
+                subject = email.subject
+                message = email.message
+                from_email = email.from_email
+                recipient_list_text = email.recipient_list
+                recipient_list = [x.strip() for x in recipient_list_text.split(';')]
 
-            send_mail(
-                subject,
-                message,
-                from_email,
-                recipient_list,
-                fail_silently=False,
-            )
-            email.sent_date = timezone.now()
-            email.save()
+                send_mail(
+                    subject,
+                    message,
+                    from_email,
+                    recipient_list,
+                    fail_silently=False,
+                )
+                email.sent_date = timezone.now()
+                email.save()

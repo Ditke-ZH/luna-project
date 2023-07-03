@@ -5,11 +5,6 @@ RUN apt-get upgrade -y
 RUN apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
-RUN apt-get -y install cron
-RUN echo "* * * * * for i in {1..6}; do /opt/conda/envs/group3_motion/bin/python /opt/project/backend/manage.py sendmail & sleep 10; done" > mycron
-RUN crontab mycron
-RUN rm mycron
-
 RUN mkdir -p /backend
 RUN mkdir -p /frontend
 RUN mkdir -p /scripts

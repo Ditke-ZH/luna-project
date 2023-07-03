@@ -39,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # own apps
     'user',
+    'restaurant',
+    'category',
+    'review',
+    'email_scheduler',
+
     # third party app
     'rest_framework',
     'drf_yasg',
