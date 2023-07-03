@@ -1,8 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 # from django.contrib.auth import get_user_model
-from backend.user import User
-# from category.models import Category
 
+# from category.models import Category
+User = get_user_model()
 # Create your models here.
 PRICE_LEVEL_CHOICES = [
     (1, '$'),
