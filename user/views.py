@@ -47,3 +47,11 @@ class FilteringUsersList(generics.ListAPIView):
                 filter_kwargs['last_name__icontains'] = last_name
             queryset = queryset.filter(**filter_kwargs)
         return queryset
+
+
+class RetrieveUserByIDGenericAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get_object(self):
+        return self.get_queryset().get(pk=self.kwargs['pk'])
