@@ -5,7 +5,7 @@ const MenuItems = [
   { name: "Home", link: "/" },
   { name: "Search", link: "serach" },
   { name: "Profile", link: "profile" },
-] as const;
+];
 const Header = () => {
   return (
     <header className=" flex p-5 justify-between border-b-2">
