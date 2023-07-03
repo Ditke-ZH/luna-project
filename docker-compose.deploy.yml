@@ -4,7 +4,7 @@ services:
   backend:
     image: registry.gitlab.propulsion-home.ch/full-stack/batch-24-may-2023/motion-backend/motion-3:master
     env_file:
-      - ../../Week_8/motion-3/envs/prod.env
+      - ./envs/prod.env
     volumes:
       - static_files:/static-files
       - media_files:/media-files
@@ -16,7 +16,7 @@ services:
   postgres:
     image: postgres:latest
     env_file:
-      - ../../Week_8/motion-3/envs/prod.env
+      - ./envs/prod.env
     volumes:
       - postgres_db:/var/lib/postgresql/data
 

@@ -2,7 +2,7 @@ version: '3'
 
 services:
   backend:
-    image: motion_backend:latest
+    image: luna-3_backend:latest
     ports:
       - "8000:8000"
       - "5173:5173"
