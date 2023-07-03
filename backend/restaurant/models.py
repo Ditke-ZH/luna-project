@@ -1,6 +1,6 @@
 from django.db import models
 # from django.contrib.auth import get_user_model
-from user.models import User
+from backend.user import User
 # from category.models import Category
 
 # Create your models here.
