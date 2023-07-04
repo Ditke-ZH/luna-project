@@ -42,6 +42,9 @@ urlpatterns = [
     # users
     path('api/users/', include('user.urls')),
 
+    # comments
+    path('api/review/comment', include('comment.urls')),
+
     # token url setup
     path('api/auth/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
