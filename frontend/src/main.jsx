@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import Layout from "./Layout";
 import Home from "./pages/Home";
+import Signup from "./pages/signUp/Signup";
+import SignIn from "./pages/login/SignIn";
 import "./global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -14,6 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<SignIn />} />
           </Route>
         </Routes>
       </BrowserRouter>
