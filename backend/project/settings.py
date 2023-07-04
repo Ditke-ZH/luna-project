@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_qt4=xme4#u&!(^=-49xip%@ced$1$l7j$8xq@%0!&jx%11#m=
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://<domain>', 'http://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://luna3.propulsion-learn.ch', 'http://127.0.0.1']
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
@@ -39,11 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # own apps
     'user',
     'comment',
     'review',
     'restaurant',
+    'category',
+    'email_scheduler',
+
     # third party app
     'rest_framework',
     'drf_yasg',
