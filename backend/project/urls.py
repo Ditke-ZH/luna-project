@@ -21,6 +21,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
+from restaurant.views import RestaurantListView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -49,10 +50,11 @@ urlpatterns = [
     path('api/auth/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
-    # path('api/auth/password-reset/', .as_view(), name='password_reset'),
 
     path('api/restaurants/', include('restaurant.urls')),
+    path('api/home/', RestaurantListView.as_view()),
 
     path('api/reviews/', include('review.urls')),
-
+    path('api/registration/', include('user_registration.urls')),
+    path('api/auth/password-reset/', include('user_registration.urls')),
 ]
