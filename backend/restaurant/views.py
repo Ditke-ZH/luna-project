@@ -17,7 +17,11 @@ class RestaurantListView(ListAPIView):
     serializer_class = RestaurantSerializer
 
     def get_queryset(self):
-        queryset = Restaurant.objects.all().order_by('rating_average')
+
+        if self.request._request.path == '/api/home/':
+            queryset = Restaurant.objects.all().order_by('-rating_average')[:4]
+        else:
+            queryset = Restaurant.objects.all().order_by('-rating_average')
         return queryset
 
 
@@ -30,7 +34,7 @@ class RestaurantUserListView(ListAPIView):
 
     def get_queryset(self):
         user_id = self.kwargs['user_id']
-        return Restaurant.objects.filter(owner_id=user_id).order_by('rating_average')
+        return Restaurant.objects.filter(owner_id=user_id).order_by('-rating_average')
 
 
 class RestaurantCategoryListView(ListAPIView):
@@ -42,7 +46,7 @@ class RestaurantCategoryListView(ListAPIView):
 
     def get_queryset(self):
         category_id = self.kwargs['category_id']
-        return Restaurant.objects.filter(categories__contains=category_id).order_by('rating_average')
+        return Restaurant.objects.filter(categories__contains=category_id).order_by('-rating_average')
 
 
 class RestaurantCreateView(CreateAPIView):

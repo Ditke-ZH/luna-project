@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # own apps
     'user',
+    'user_registration',
     'comment',
     'review',
     'restaurant',

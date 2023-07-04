@@ -5,10 +5,8 @@ from review.models import Review
 User = get_user_model()
 
 
-# Create your models here.
 class Comment(models.Model):
-    review_comment = models.ForeignKey(to=Review, related_name='comments', on_delete=models.CASCADE, blank=True,
-                                       null=True)
+    review = models.ForeignKey(to=Review, related_name='comments', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(to=User, related_name='comments', on_delete=models.CASCADE, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
@@ -16,4 +14,4 @@ class Comment(models.Model):
     comments_text = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.user} : {self.review_comment}, {self.date_created}'
+        return f'{self.user} : {self.review}, {self.date_created}'
