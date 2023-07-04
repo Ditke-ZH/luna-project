@@ -42,9 +42,10 @@ INSTALLED_APPS = [
 
     # own apps
     'user',
+    'comment',
+    'review',
     'restaurant',
     'category',
-    'review',
     'email_scheduler',
 
     # third party app
