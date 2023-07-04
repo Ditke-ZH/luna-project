@@ -7,9 +7,9 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         restaurant = RestaurantSerializer()
-        fields = ['id', 'text_content', 'created', 'updated', 'user', 'liked_by', 'review_comments', 'rating',
+        fields = ['id', 'text_content', 'created', 'updated', 'user', 'liked_by', 'rating',
                   'restaurant']
-        read_only_fields = ['user', 'restaurant', 'review_comments']
+        read_only_fields = ['user', 'restaurant']
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)

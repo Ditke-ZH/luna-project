@@ -4,6 +4,8 @@ from rest_framework import generics
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
 # from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+
+from comment.serializers import CommentSerializer
 from review.models import Review
 from restaurant.models import Restaurant
 # from review.permissions import IsLoggedInUserOrStaff
@@ -101,7 +103,7 @@ class ToggleLikeReview(GenericAPIView):
 
 class ListLikedReviews(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
-    queryset = Review.objects.all()
+    # queryset = Review.objects.all()
 
     def get_queryset(self):
         user = self.request.user
@@ -109,8 +111,8 @@ class ListLikedReviews(generics.ListCreateAPIView):
 
 
 class ListCommentedReviews(ListCreateAPIView):
-    # serializer_class = CommentSerializer
-    queryset = Review.objects.all()
+    serializer_class = CommentSerializer
+    # queryset = Review.objects.all()
 
     def get_queryset(self):
         user = self.request.user
