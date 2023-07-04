@@ -5,7 +5,6 @@ from rest_framework.response import Response
 
 from user.serializers import UserSerializer
 
-# Create your views here.
 User = get_user_model()
 
 
