@@ -1,4 +1,5 @@
-import Container from "../components/container/Container";
+import Container from "../../components/container/Container";
+import "./home.css";
 
 const Home = () => {
   return (
