@@ -5,7 +5,7 @@ import "./signup.css";
 
 const Signup = () => {
   const [emailValue, setEmailValue] = useState("");
-  const [signUpSteps, setSignUpSteps] = useState(3);
+  const [signUpSteps, setSignUpSteps] = useState(1);
   const [emaiVerification, setEmailverification] = useState("");
   const [validationCode, setValidationCode] = useState("");
   const [userName, setUserName] = useState("");
@@ -16,12 +16,16 @@ const Signup = () => {
 
   const handelSubmitEmail = e => {
     e.preventDefault();
-    axios.post("http://localhost:5173/backend/api/registration/", {
-      email: emailValue,
-    });
+    axios.post(
+      `${import.meta.env.VITE_API_BASEURL}/backend/api/registration/`,
+      {
+        email: emailValue,
+      }
+    );
     console.log(emailValue);
     setSignUpSteps(signUpSteps + 1);
   };
+
   const handelVerificationFrom = e => {
     e.preventDefault();
     if (password !== passwordRepeat) {
@@ -62,12 +66,20 @@ const Signup = () => {
         </form>
       )}
       {signUpSteps == 2 && (
-        <p className="signUp-message ">
-          Thanks for your registration. Our hard working monkeys are preparing a
-          digital message called E-Mail that will be sent to you soon. Since
-          monkeys arent good in writing the message could end up in you junk
-          folder. Our apologies for any inconvienience.thank for{" "}
-        </p>
+        <>
+          <p className="signUp-message ">
+            Thanks for your registration. Our hard working monkeys are preparing
+            a digital message called E-Mail that will be sent to you soon. Since
+            monkeys arent good in writing the message could end up in you junk
+            folder. Our apologies for any inconvienience.thank for{" "}
+          </p>
+          <Button
+            type="submit"
+            onClickFunction={() => setSignUpSteps(signUpSteps + 1)}
+          >
+            Verify
+          </Button>
+        </>
       )}
       {signUpSteps == 3 && (
         <form

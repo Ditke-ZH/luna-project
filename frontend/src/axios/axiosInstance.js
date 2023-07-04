@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5173";
+const baseUrl = import.meta.env.VITE_API_BASEURL;
 const token = localStorage.getItem("accessToken");
 
 export const axiosMotion = axios.create({
