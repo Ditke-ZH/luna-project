@@ -4,15 +4,16 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-class UserSerializerFollow(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name']
-
+# class UserSerializerFollow(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['first_name', 'last_name']
+#
 
 class UserSerializer(serializers.ModelSerializer):
-    user_follows = UserSerializerFollow(read_only=True, many=True)
+    # user_follows = UserSerializerFollow(read_only=True, many=True)
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'location', 'user_phone', 'user_description',
+                  'date_joined', 'profile_picture', 'password']
