@@ -1,7 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+:root {
+  --white-luna: #ffffff;
+  --grey-luna: #97979734;
+  --grey-input-placeholder: #979797;
+  --orange-luna: #e47d31;
+  --orange-luna-hover: #c15f1a;
+  --lightBlack-luna: #4c4c4c;
+  --link-black: #4a4a4a;
+  --body-offWhite: #f8f8f8;
+}
 
 * {
   margin: 0;
@@ -9,8 +17,43 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+body {
+  background: var(--body-offWhite);
+}
+main {
+  height: 100vh;
+}
 
-a.active {
-  font-weight: 800;
-  border-bottom: 2px solid orange;
+/*CommomStyle*/
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  padding: 20px;
+}
+.page-title::after {
+  position: absolute;
+  content: "";
+  width: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  border-bottom: 2px solid var(--orange-luna);
+  bottom: 0;
+  -webkit-transform: translate(-50%);
+  -moz-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  -o-transform: translate(-50%);
+}
+.input-field {
+  padding: 0.8rem 1.4rem;
+  border: none;
+  outline: none;
 }
