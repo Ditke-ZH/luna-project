@@ -57,7 +57,7 @@ class RestaurantCreateView(CreateAPIView):
 
         # create email to user for confirmation
         mail_instance = EmailScheduler.objects.all()
-        subject = f'Motion-3: new restaurant created'
+        subject = 'Motion-3: new restaurant created'
         message = f'Dear {self.request.user.username}\n\n' \
                   f'You get this email to confirm, that you have just created a new restaurant:\n\n' \
                   f'{serializer.data["name"]} in {serializer.data["city"]}, {serializer.data["country"]}\n\n' \
