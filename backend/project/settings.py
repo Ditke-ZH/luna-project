@@ -174,10 +174,10 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 
 # DOCUMENTATION
 SWAGGER_SETTINGS = {
-    'USE_SESSION_AUTH': False,  # Change settings to True to enable Django Login option
-    'LOGIN_URL': 'admin/',  # URL For Django Login
+    'USE_SESSION_AUTH': False,      # Change settings to True to enable Django Login option
+    'LOGIN_URL': 'admin/',          # URL For Django Login
     'LOGOUT_URL': 'admin/logout/',  # URL For Django Logout
-    'SECURITY_DEFINITIONS': { # Allows usage of Access token to make requests on the docs.
+    'SECURITY_DEFINITIONS': {       # Allows usage of Access token to make requests on the docs.
         'Bearer': {
             'type': 'apiKey',
             'name': 'Authorization',
