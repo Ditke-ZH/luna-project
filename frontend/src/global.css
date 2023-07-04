@@ -38,11 +38,13 @@ main {
   text-transform: uppercase;
   position: relative;
   padding: 20px;
+  text-align: center;
 }
 .page-title::after {
   position: absolute;
   content: "";
-  width: 50%;
+  width: 20%;
+  max-width: 30%;
   left: 50%;
   transform: translate(-50%);
   border-bottom: 2px solid var(--orange-luna);
