@@ -1,0 +1,10 @@
+.user-profile-reviews-container{
+    display: flex;
+    flex-direction: column;
+    align-content: baseline;
+    justify-content: center;
+    border: 2px blue solid;
+    color: black;
+    width: 50%;
+
+}
