@@ -32,12 +32,8 @@ class Restaurant(models.Model):
     rating_average = models.FloatField(default=0, blank=True, null=True)
     review_count = models.IntegerField(default=0, blank=True, null=True)
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(args, kwargs)
-    #     self.restaurant_reviews = None
-
     def update_review_fields(self):
-        reviews = self.restaurant_reviews.all()
+        reviews = self.reviews.all()
         self.rating_average = reviews.aggregate(models.Avg('rating')).get('rating__avg')
         self.review_count = reviews.count()
         self.save(update_fields=['rating_average', 'review_count'])
