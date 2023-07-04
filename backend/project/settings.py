@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_qt4=xme4#u&!(^=-49xip%@ced$1$l7j$8xq@%0!&jx%11#m=
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://<domain>', 'http://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://luna3.propulsion-learn.ch', 'http://127.0.0.1']
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
@@ -39,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # own apps
     'user',
+    'restaurant',
+    'category',
+    'review',
+    'email_scheduler',
+
     # third party app
     'rest_framework',
     'drf_yasg',
@@ -132,7 +138,6 @@ STATIC_URL = 'static-files/'
 STATIC_ROOT = 'static-files/' if DEBUG else '/static-files/'
 
 USE_X_FORWARDED_HOST = True
-USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MEDIA_URL = 'media-files/'
@@ -158,3 +163,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')

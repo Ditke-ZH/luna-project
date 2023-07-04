@@ -6,7 +6,7 @@ from restaurant.models import Restaurant
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    restaurants = models.ManyToManyField(to=Restaurant, related_name='categories', blank=True, null=True)
+    restaurants = models.ManyToManyField(to=Restaurant, related_name='categories')
 
     def __str__(self):
         return self.name
