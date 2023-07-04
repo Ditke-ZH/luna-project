@@ -1,11 +1,9 @@
 from django.urls import path
 
-from user.views import RetrieveUpdateDeleteUserGenericAPIView, RetrieveUsersList, FilteringUsersList, \
-    RetrieveUserByIDGenericAPIView
+from user.views import RetrieveUpdateDeleteUserView, RetrieveUsersList, RetrieveUserByIDView
 
 urlpatterns = [
-    path('me/', RetrieveUpdateDeleteUserGenericAPIView.as_view()),
-    path('list/', RetrieveUsersList.as_view()),
-    path('search/', FilteringUsersList.as_view()),
-    path('<int:pk>/', RetrieveUserByIDGenericAPIView.as_view()),
+    path('me/', RetrieveUpdateDeleteUserView.as_view()),
+    path('', RetrieveUsersList.as_view()),
+    path('<int:user_id>/', RetrieveUserByIDView.as_view()),
     ]
