@@ -1,4 +1,4 @@
-from django.urls import path
+# from django.urls import path
 # from comment.views import
 
 urlpatterns = [
@@ -8,4 +8,4 @@ urlpatterns = [
     # path('<int:pk>/', RetrieveUpdateDeleteUserGenericAPIView.as_view()),
     # DELETE: Delete the comment by providing the comment id
     # path('<int:pk>/', FilteringUsersList.as_view()),
-    ]
+]
