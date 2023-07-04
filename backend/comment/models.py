@@ -7,8 +7,9 @@ User = get_user_model()
 
 # Create your models here.
 class Comment(models.Model):
-    review_comment = models.ManyToManyField(to=Review, related_name='comments', blank=True)
-    user = models.ManyToManyField(to=User, related_name='comments', blank=True)
+    review_comment = models.ForeignKey(to=Review, related_name='comments', on_delete=models.CASCADE, blank=True,
+                                       null=True)
+    user = models.ForeignKey(to=User, related_name='comments', on_delete=models.CASCADE, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     comments_likes = models.IntegerField(blank=True, null=True)
