@@ -48,4 +48,6 @@ urlpatterns = [
     path('api/auth/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
     # path('api/auth/password-reset/', .as_view(), name='password_reset'),
 
+    path('api/restaurants/', include('restaurant.urls'))
+
 ]
