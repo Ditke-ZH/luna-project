@@ -21,6 +21,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
+from category.views import CategoryListView
 from restaurant.views import RestaurantListView
 
 schema_view = get_schema_view(
@@ -53,8 +54,9 @@ urlpatterns = [
 
     path('api/restaurants/', include('restaurant.urls')),
     path('api/home/', RestaurantListView.as_view()),
-
     path('api/reviews/', include('review.urls')),
+    path('api/category/list/', CategoryListView.as_view()),
+
     path('api/registration/', include('user_registration.urls')),
     path('api/auth/password-reset/', include('user_registration.urls')),
 ]
