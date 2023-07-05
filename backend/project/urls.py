@@ -22,7 +22,7 @@ from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
 from category.views import CategoryListView
-from restaurant.views import RestaurantListView
+from restaurant.views import RestaurantListView, GeneralSearchListView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -58,4 +58,5 @@ urlpatterns = [
     path('api/reviews/', include('review.urls')),
     path('api/review/comment/', include('comment.urls')),
     path('api/category/list/', CategoryListView.as_view()),
+    path('api/search/', GeneralSearchListView.as_view())
 ]

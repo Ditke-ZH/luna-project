@@ -1,10 +1,14 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 
 from email_scheduler.models import EmailScheduler
 from restaurant.models import Restaurant
 from restaurant.serializers import RestaurantSerializer
+from review.models import Review
+from review.serializers import ReviewSerializer
+from user.serializers import UserSerializer
 
 User = get_user_model()
 
@@ -87,3 +91,36 @@ class RestaurantGetUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     @swagger_auto_schema(auto_schema=None)
     def put(self, request, *args, **kwargs):
         pass
+
+
+class GeneralSearchListView(ListAPIView):
+    """
+        get:
+        Search for ‘restaurants’, ‘reviews’ or ‘users’
+        EXAMPLE - /api/search/?type=restaurants&search_string=Pub}
+    """
+
+    def get_serializer_class(self):
+        search_type = self.request.query_params.get('type', None)
+        if search_type == 'restaurants':
+            return RestaurantSerializer
+        if search_type == 'reviews':
+            return ReviewSerializer
+        if search_type == 'users':
+            return UserSerializer
+        return RestaurantSerializer
+
+    def get_queryset(self):
+        search_type = self.request.query_params.get('type', None)
+        search_string = self.request.query_params.get('search_string', None)
+        if search_string is None:
+            return
+        if search_type == 'restaurants':
+            return Restaurant.objects.filter(name__icontains=search_string).order_by('-rating_average')
+        if search_type == 'reviews':
+            return Review.objects.filter(text_content__icontains=search_string)
+        if search_type == 'users':
+            return User.objects.filter(Q(username__icontains=search_string) |
+                                       Q(first_name__icontains=search_string) |
+                                       Q(last_name__icontains=search_string))
+        return
