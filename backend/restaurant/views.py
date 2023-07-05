@@ -99,7 +99,8 @@ class GeneralSearchListView(ListAPIView):
     """
         get:
         Search for ‘restaurants’, ‘reviews’ or ‘users’
-        EXAMPLE - /api/search/?type=restaurants&search_string=Pub}
+        EXAMPLE - /api/search/?type=restaurants&search_string=Pub
+        additional filter for category for restaurants and reviews
     """
 
     def get_serializer_class(self):
@@ -115,13 +116,25 @@ class GeneralSearchListView(ListAPIView):
     def get_queryset(self):
         search_type = self.request.query_params.get('type', None)
         search_string = self.request.query_params.get('search_string', None)
-        if search_string is None:
-            return
+        search_category = self.request.query_params.get('category', None)
+
         if search_type == 'restaurants':
-            return Restaurant.objects.filter(name__icontains=search_string).order_by('-rating_average')
+            queryset = Restaurant.objects.all().order_by('-rating_average')
+            if search_string is not None:
+                queryset = queryset.filter(name__icontains=search_string)
+            if search_category is not None:
+                queryset = queryset.filter(categories__name=search_category)
+            return queryset
+
         if search_type == 'reviews':
-            return Review.objects.filter(text_content__icontains=search_string)
-        if search_type == 'users':
+            queryset = Review.objects.all()
+            if search_string is not None:
+                queryset = queryset.filter(text_content__icontains=search_string)
+            if search_category is not None:
+                queryset = queryset.filter(restaurant__categories__name=search_category)
+            return queryset
+
+        if search_type == 'users' and search_string is not None:
             return User.objects.filter(Q(username__icontains=search_string) |
                                        Q(first_name__icontains=search_string) |
                                        Q(last_name__icontains=search_string))
