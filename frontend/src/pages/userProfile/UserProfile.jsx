@@ -1,13 +1,28 @@
+import axios from "axios";
+import { useEffect, useState} from "react";
 import "./userProfile.css";
 import zurichSkyline from '../../assets/images/zuerich-skyline.jpg'
 import profilePicture from '../../assets/images/profile-picture.png'
 import UserProfileMenu from "../../components/UserProfile/UserProfileMenu/UserProfileMenu.jsx";
-// import {useEffect, useState} from "react";
-import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
+// import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
+import UserProfileRestaurants from "../../components/UserProfile/UserProfileRestaurants/UserProfileRestaurants.jsx";
+import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserProfileEdit.jsx";
 const UserProfile = () => {
-    // useState()
-    // useEffect(fetch)
-    // fetch
+    const [user, setUser] = useState(null)
+     useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/users/me/');
+        setUser(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+    }, []);
+
     return (
         <>
             <div className="user-profile-page-container">
@@ -28,7 +43,9 @@ const UserProfile = () => {
                              <p className="user-info-elements">6 reviews</p>
                              <p className="user-info-elements">210 comments</p>
                          </div>
-                         <UserProfileReviews />
+                         {/*<UserProfileReviews />*/}
+                         {/*<UserProfileRestaurants />*/}
+                         <UserProfileEdit />
                     </div>
                     <div className="about-user">
                         <div className="about-user-title"><h2>ABOUT LAURENT</h2></div>

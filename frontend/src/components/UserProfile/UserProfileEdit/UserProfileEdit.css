@@ -1,0 +1,40 @@
+
+.user-profile-edit-container{
+    display: flex;
+    flex-direction: column;
+    align-content: baseline;
+    justify-content: center;
+    width: 30rem;
+    border: 2px blue solid;
+    color: black;
+    margin-top: 9%;
+    margin-right: 6%;
+}
+
+.user-profile-edit-entry-label{
+    color: var(--grey-input-placeholder);
+    margin-bottom: 4%;
+}
+
+.user-profile-edit-text-field{
+    border: solid 1px #EAEAEA;
+    width: 100%;
+    height: 50%;
+}
+.user-profile-edit-content-container{
+    border-bottom: solid 1px #EAEAEA;
+    border: 2px pink solid;
+}
+
+.user-profile-edit-title{
+    margin-top: 0.2%;
+    margin-bottom: 6%;
+    border: 2px solid fuchsia;
+}
+
+.create-edit-button{
+    margin-top: 4%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
