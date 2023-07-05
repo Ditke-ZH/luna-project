@@ -1,11 +1,8 @@
-# from django.urls import path
-# from comment.views import
+from django.urls import path
+from comment.views import CreateCommentView, GetUserCommentsView, DeleteCommentView
 
 urlpatterns = [
-    # POST: Comment on a review by providing the review id
-    # path('new/<int:pk>/', RetrieveUsersList.as_view()),
-    # GET: Get all the comments from a single user
-    # path('<int:pk>/', RetrieveUpdateDeleteUserGenericAPIView.as_view()),
-    # DELETE: Delete the comment by providing the comment id
-    # path('<int:pk>/', FilteringUsersList.as_view()),
+    path('new/<int:review_id>/', CreateCommentView.as_view()),
+    path('<int:user_id>/', GetUserCommentsView.as_view()),
+    path('delete/<int:comment_id>/', DeleteCommentView.as_view()),
 ]
