@@ -1,17 +1,15 @@
 from django.urls import path
 
-from review.views import ListCreateReviewsView, ListRestaurantReviews, RetrieveUpdateDeleteReviewsView, \
-    ToggleLikeReview, ListReviewsView, ListLikedReviews, ListCommentedReviews
+from review.views import CreateReviewsView, ListRestaurantReviewsView, RetrieveUpdateDeleteReviewsView, \
+    ToggleLikeReview, ListUserReviewsView, ListLikedReviews, ListCommentedReviews
 
 
 urlpatterns = [
-    path('', ListCreateReviewsView.as_view()),
-    path('new/<int:restaurant_id>/', ListCreateReviewsView.as_view()),
-    path('restaurant/<int:restaurant_id>/', ListRestaurantReviews.as_view()),
-    path('user/<int:user_id>/', ListReviewsView.as_view()),
-    path('user/me/', ListReviewsView.as_view()),
-    path('<int:id>/', RetrieveUpdateDeleteReviewsView.as_view()),
-    path('like/<int:pk>/', ToggleLikeReview.as_view()),
+    path('new/<int:restaurant_id>/', CreateReviewsView.as_view()),
+    path('restaurant/<int:restaurant_id>/', ListRestaurantReviewsView.as_view()),
+    path('user/<int:user_id>/', ListUserReviewsView.as_view()),
+    path('<int:review_id>/', RetrieveUpdateDeleteReviewsView.as_view()),
+    path('like/<int:review_id>/', ToggleLikeReview.as_view()),
     path('likes/', ListLikedReviews.as_view()),
     path('comments/', ListCommentedReviews.as_view())
 ]

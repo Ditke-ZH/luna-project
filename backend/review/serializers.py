@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from comment.serializers import CommentSerializer
 from restaurant.serializers import RestaurantSerializer
 from review.models import Review
 
@@ -14,4 +16,5 @@ class ReviewSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['restaurant'] = RestaurantSerializer(instance.restaurant, many=False, context=self.context).data
+        representation['comments'] = CommentSerializer(instance.comments, many=True, allow_null=True).data
         return representation
