@@ -14,12 +14,12 @@ class CustomUserAdmin(BaseUserAdmin):
     )
     # fields when reading / updating an instance
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'profile_picture')}),
+        (None, {'fields': ('email', 'password', 'profile_picture', 'is_staff', 'is_superuser')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'location', 'user_phone', 'user_description')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     # fields which are shown when looking at a list of instances
-    list_display = ('email', 'first_name', 'last_name')
+    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_superuser')
 
 
 admin.site.register(User, CustomUserAdmin)

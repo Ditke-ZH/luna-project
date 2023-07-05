@@ -24,7 +24,6 @@ class RegisterView(CreateAPIView):
     """
         post:
         Register a user
-
     """
     queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
@@ -33,8 +32,6 @@ class RegisterView(CreateAPIView):
     def create(self, request, *args, **kwargs):
         code = code_generator()
         email = request.data['email']
-        email_header = ''
-        email_body = ''
 
         # create new user
         data = request.data
@@ -67,7 +64,6 @@ class RegisterValidationView(CreateAPIView):
     """
         post:
         Validate the user
-
     """
     queryset = User.objects.all()
     serializer_class = UserRegistrationValidationSerializer
