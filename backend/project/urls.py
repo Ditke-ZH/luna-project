@@ -26,11 +26,11 @@ from restaurant.views import RestaurantListView, GeneralSearchListView
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Django API",
+      title="Luna-3 API",
       default_version='v1',
-      description="Description of your Django App",
+      description="Backend for the GREAT luna-3 app",
       terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="learning@constructor.org"),
+      contact=openapi.Contact(email="luna.group3.best.ever@gmail.com"),
       license=openapi.License(name="BSD License"),
    ),
    public=True,  # Set to False restrict access to protected endpoints
