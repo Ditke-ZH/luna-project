@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/signUp/Signup";
 import SignIn from "./pages/login/SignIn";
 import "./global.css";
+import UserProfile from "./pages/userProfile/UserProfile.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<SignIn />} />
+            <Route path="/user-profile/:UserId" element={<UserProfile />} />
             <Route path="/search" element={<Search />} />
           </Route>
           <Route path="*" element={<NotFound />} />

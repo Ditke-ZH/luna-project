@@ -1,15 +1,16 @@
 from django.contrib.auth import get_user_model
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView
+from django.db.models import Q
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveAPIView
 from rest_framework import generics
 from rest_framework.response import Response
 
 from user.serializers import UserSerializer
 
-# Create your views here.
 User = get_user_model()
 
 
-class RetrieveUpdateDeleteUserGenericAPIView(RetrieveUpdateDestroyAPIView):
+class RetrieveUpdateDeleteUserView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     lookup_field = None
 
@@ -24,12 +25,28 @@ class RetrieveUpdateDeleteUserGenericAPIView(RetrieveUpdateDestroyAPIView):
         serializer.save()
         return Response(serializer.data)
 
+    @swagger_auto_schema(auto_schema=None)
+    def put(self, request, *args, **kwargs):
+        pass
+
 
 class RetrieveUsersList(ListAPIView):
+    """
+        get:
+        List all Users
+        searchable on username, first_name and last_name with query-parameter 'search'
+        EXAMPLE ".../api/users/?search=stefan"
+    """
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        return User.objects.all()
+        queryset = User.objects.all()
+        search_string = self.request.query_params.get('search', None)
+        if search_string is not None:
+            queryset = queryset.filter(Q(username__icontains=search_string) |
+                                       Q(first_name__icontains=search_string) |
+                                       Q(last_name__icontains=search_string))
+        return queryset
 
 
 class FilteringUsersList(generics.ListAPIView):
@@ -49,9 +66,10 @@ class FilteringUsersList(generics.ListAPIView):
         return queryset
 
 
-class RetrieveUserByIDGenericAPIView(RetrieveUpdateDestroyAPIView):
+class RetrieveUserByIDView(RetrieveAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    lookup_url_kwarg = 'user_id'
 
-    def get_object(self):
-        return self.get_queryset().get(pk=self.kwargs['pk'])
+    # def get_object(self):
+    #     return self.get_queryset().get(pk=self.kwargs['pk'])

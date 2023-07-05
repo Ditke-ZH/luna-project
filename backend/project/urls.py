@@ -16,20 +16,46 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
+from category.views import CategoryListView
+from restaurant.views import RestaurantListView
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Django API",
+      default_version='v1',
+      description="Description of your Django App",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="learning@constructor.org"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,  # Set to False restrict access to protected endpoints
+   permission_classes=(permissions.AllowAny,),  # Permissions for docs access
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),
+    path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
+    # auth
+    path('api/auth/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/auth/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
+
+    path('api/registration/', include('user_registration.urls')),
+    path('api/auth/password-reset/', include('user_registration.urls')),
 
     # users
     path('api/users/', include('user.urls')),
 
-    # token url setup
-    path('api/auth/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
-    path('api/auth/password-reset/', jwt_views.TokenVerifyView.as_view(), name='password_reset'),
-    path('api/auth/password-reset/validate/', jwt_views.TokenVerifyView.as_view(), name='password_reset_validate'),
-
+    # main apps
+    path('api/restaurants/', include('restaurant.urls')),
+    path('api/home/', RestaurantListView.as_view()),
+    path('api/reviews/', include('review.urls')),
+    path('api/review/comment/', include('comment.urls')),
+    path('api/category/list/', CategoryListView.as_view()),
 ]
