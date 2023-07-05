@@ -20,10 +20,11 @@ const UserProfile = () => {
 
     const fetchUserData = async () => {
             try {
-                const response = await axiosMotion.get('/users/');
-                console.log(response)
+                const response = await axiosMotion.get('/users/1/');
+                console.log(response, 'line24')
                 setUser(response.data);
-                console.log(response.data)
+                console.log(response.data, 'line26')
+                console.log(response.data.first_name, 'line27')
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -32,6 +33,13 @@ const UserProfile = () => {
     useEffect(() => {
         fetchUserData();
     }, []);
+
+    const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleString("en-US", { month: "long" });
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+  };
 
     return (
         <main className="user-profile-page-wrapper">
@@ -48,8 +56,8 @@ const UserProfile = () => {
                     </div>
                     <div className="user-info-reviews">
                         <div className="user-info">
-                            <h2 className="user-info-full-name">Laurent H.</h2>
-                            <p className="user-info-elements">Zurich, CH</p>
+                            <h2 className="user-info-full-name">{user && user.first_name} {user && user.last_name && user.last_name.charAt(0)}.</h2>
+                            <p className="user-info-elements">{user && user.location}</p>
                             <p className="user-info-elements">6 reviews</p>
                             <p className="user-info-elements">210 comments</p>
                         </div>
@@ -59,14 +67,14 @@ const UserProfile = () => {
                         {selectedMenuItem === "comments" && <UserProfileComments/>}
                     </div>
                     <div className="about-user">
-                        <div className="about-user-title"><h2>ABOUT LAURENT</h2></div>
+                        <div className="about-user-title"><h2>ABOUT {user && user.first_name.toUpperCase()}</h2></div>
                         <div className="about-location-city">
                             <h3 className="about-user-h3-headings">Location</h3>
-                            <p className="about-user-paragraphs">Zurich, CH</p>
+                            <p className="about-user-paragraphs">{user && user.location}</p>
                         </div>
                         <div className="about-luna-member-since">
                             <h3 className="about-user-h3-headings">Luna Member Since</h3>
-                            <p className="about-user-paragraphs">April, 2018</p>
+                            <p className="about-user-paragraphs">{user && user.date_joined && formatDate(user.date_joined)}</p>
                         </div>
                         <div className="about-things-love-things">
                             <h3 className="about-user-h3-headings">Things I Love</h3>
@@ -74,9 +82,7 @@ const UserProfile = () => {
                         </div>
                         <div className="about-description-text">
                             <h3 className="about-user-h3-headings">Description</h3>
-                            <p className="about-user-paragraphs">Im professional photographer with an eye for details in
-                                every thing I do in my live. Every time a pass by a nice restaurant i have to stop and
-                                take notes</p>
+                            <p className="about-user-paragraphs">{user && user.user_description}</p>
                         </div>
                     </div>
 
