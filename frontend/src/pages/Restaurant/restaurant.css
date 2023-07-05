@@ -1,0 +1,20 @@
+.Header-div {
+  height: 496px;
+}
+
+.Bottom-div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: #f2f2f2;
+}
+
+.Filter-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  width: max(38vw, 650px);
+}
