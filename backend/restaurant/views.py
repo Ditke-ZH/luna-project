@@ -4,6 +4,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 
 from email_scheduler.models import EmailScheduler
+from project.permissions import IsOwnerAdminOrReadOnly
 from restaurant.models import Restaurant
 from restaurant.serializers import RestaurantSerializer
 from review.models import Review
@@ -84,6 +85,7 @@ class RestaurantGetUpdateDeleteView(RetrieveUpdateDestroyAPIView):
         delete:
         Delete a restaurant by id (allowed only for owner or admin)
     """
+    permission_classes = [IsOwnerAdminOrReadOnly, ]
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     lookup_url_kwarg = 'id'
