@@ -7,8 +7,16 @@ import UserProfileMenu from "../../components/UserProfile/UserProfileMenu/UserPr
 // import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
 import UserProfileRestaurants from "../../components/UserProfile/UserProfileRestaurants/UserProfileRestaurants.jsx";
 import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserProfileEdit.jsx";
+import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
+import UserProfileComments from "../../components/UserProfile/UserProfileComments/UserProfileComments.jsx";
 const UserProfile = () => {
     const [user, setUser] = useState(null)
+
+    const [selectedMenuItem, setSelectedMenuItem] = useState("restaurants");
+
+    const handleMenuItemClick = (menu) => {
+    setSelectedMenuItem(menu);
+  };
 
      useEffect(() => {
     const fetchUserData = async () => {
@@ -35,7 +43,7 @@ const UserProfile = () => {
                     <div className="user-img-menu-container">
                         <div className="user-image-container">
                             <img className="user-image" src={profilePicture} alt="user-profile-picture"/>
-                            <UserProfileMenu/>
+                            <UserProfileMenu onItemClick={handleMenuItemClick} />
                         </div>
                     </div>
                      <div className="user-info-reviews">
@@ -45,9 +53,10 @@ const UserProfile = () => {
                              <p className="user-info-elements">6 reviews</p>
                              <p className="user-info-elements">210 comments</p>
                          </div>
-                         {/*<UserProfileReviews />*/}
-                         {/*<UserProfileRestaurants />*/}
-                         <UserProfileEdit />
+                         {selectedMenuItem === "reviews" && <UserProfileReviews />}
+                         {selectedMenuItem === "restaurants" && <UserProfileRestaurants />}
+                         {selectedMenuItem === "edit" && <UserProfileEdit />}
+                         {selectedMenuItem === "comments" && <UserProfileComments />}
                     </div>
                     <div className="about-user">
                         <div className="about-user-title"><h2>ABOUT LAURENT</h2></div>
