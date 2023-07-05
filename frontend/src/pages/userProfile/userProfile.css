@@ -1,5 +1,5 @@
 .user-profile-page-container {
-    border: solid #e47d31;
+    /*border: solid #e47d31;*/
     position: relative;
     height: 30%;
     /*z-index: 1;*/
@@ -7,11 +7,14 @@
 
 .user-profile-page-header{
     height: 100%;
+    width: 100%;
     background-color: black;
 }
 
 .header-image {
     height: 100%;
+    width: 100%;
+    object-fit: cover;
     opacity: 0.6;
 }
 
@@ -27,7 +30,7 @@
 }
 
 .user-main-body-container {
-  border: solid black;
+  /*border: solid black;*/
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -39,12 +42,12 @@
 }
 
 .user-img-menu-container{
-    border: solid pink;
+    /*border: solid pink;*/
     display: flex;
     flex-direction: column;
     align-content: flex-start;
     justify-content: flex-start;
-    width: 23%;
+    min-width: 23%;
     height: 100%;
 }
 
@@ -54,9 +57,12 @@
 }
 
 .user-image{
-    width: 123%;
+    width: 126%;
 }
 
+.user-info{
+    margin-bottom: 3%;
+}
 
 .user-info-reviews{
     display: flex;
@@ -67,9 +73,34 @@
 }
 
 .user-info-full-name{
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .user-info-elements{
-    margin-bottom: 2%;
+    margin-bottom: 1%;
+    font-weight: lighter;
+}
+
+.about-user{
+    /*border: 2px blue solid;*/
+    display: flex;
+    flex-direction: column;
+    max-width: 30%;
+    min-width: 15%;
+    margin-top: 11.4%;
+    border-left: solid 1px #EAEAEA;
+    padding: 1.5%;
+}
+
+.about-user-title{
+    margin-bottom: 6%;
+}
+
+.about-user-h3-headings{
+    margin-bottom: 2.5%;
+}
+
+.about-user-paragraphs{
+    margin-bottom: 5.5%;
+    font-weight: lighter;
 }

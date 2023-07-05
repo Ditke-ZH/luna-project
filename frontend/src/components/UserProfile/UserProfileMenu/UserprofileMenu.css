@@ -5,6 +5,7 @@
     padding: 10%;
     background-color: #EAEAEA;
     object-fit: contain;
+    /*border: 2px blue solid;*/
 }
 
 .user-profile-menu-list-element{
@@ -16,6 +17,7 @@
     width: 126%;
     background-color: var(--white-luna);
     transition: background-color 0.3s ease;
+    font-weight: lighter;
 }
 
 .user-profile-menu-list-element:hover{
@@ -38,5 +40,4 @@
     align-content: center;
     justify-content: center;
     margin-left: 12%;
-    font-family: "Roboto Light";
 }

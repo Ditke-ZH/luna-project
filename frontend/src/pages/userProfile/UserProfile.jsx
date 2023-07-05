@@ -31,6 +31,23 @@ const UserProfile = () => {
                          <UserProfileReviews />
                     </div>
                     <div className="about-user">
+                        <div className="about-user-title"><h2>ABOUT LAURENT</h2></div>
+                        <div className="about-location-city">
+                            <h3 className="about-user-h3-headings">Location</h3>
+                            <p className="about-user-paragraphs">Zurich, CH</p>
+                        </div>
+                        <div className="about-luna-member-since">
+                            <h3 className="about-user-h3-headings">Luna Member Since</h3>
+                            <p className="about-user-paragraphs">April, 2018</p>
+                        </div>
+                         <div className="about-things-love-things">
+                            <h3 className="about-user-h3-headings">Things I Love</h3>
+                            <p className="about-user-paragraphs">Everything</p>
+                        </div>
+                        <div className="about-description-text">
+                            <h3 className="about-user-h3-headings">Description</h3>
+                            <p className="about-user-paragraphs">Im professional photographer with an eye for details in every thing I do in my live. Every time a pass by a nice restaurant i have to stop and take notes</p>
+                        </div>
                     </div>
 
                 </div>
