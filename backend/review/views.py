@@ -6,7 +6,6 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, G
 from rest_framework.response import Response
 # from rest_framework.permissions import IsAuthenticated
 
-from comment.serializers import CommentSerializer
 from review.models import Review
 from restaurant.models import Restaurant
 from review.serializers import ReviewSerializer
@@ -98,9 +97,9 @@ class ListLikedReviews(generics.ListAPIView):
 
 
 class ListCommentedReviews(ListAPIView):
-    serializer_class = CommentSerializer
-    # queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
 
     def get_queryset(self):
         user = self.request.user
-        return user.comments.all()
+        queryset = Review.objects.filter(comments__user=user)
+        return queryset
