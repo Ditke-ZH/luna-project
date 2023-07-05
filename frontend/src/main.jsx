@@ -22,7 +22,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/user-profile" element={<UserProfile />} />
+            <Route
+              path="search/users/:userId"
+              element={<UserProfile />}
+              //loader={userProfileLoader}
+            />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
