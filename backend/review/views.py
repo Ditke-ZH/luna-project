@@ -2,19 +2,16 @@
 from django.contrib.auth import get_user_model
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, CreateAPIView, \
-    ListAPIView
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, CreateAPIView
 from rest_framework.response import Response
+# from rest_framework.permissions import IsAuthenticated
 
 from comment.serializers import CommentSerializer
 from review.models import Review
 from restaurant.models import Restaurant
-# from review.permissions import IsLoggedInUserOrStaff
 from review.serializers import ReviewSerializer
-# from comment.serializers import CommentSerializer
+# from review.permissions import IsLoggedInUserOrStaff
 
-# Create your views here.
 User = get_user_model()
 
 
