@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Button from "../../components/Button/Button";
 import ResturantCard from "../../components/ResturantCard";
@@ -38,10 +39,15 @@ const dummyContent = [
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
   const [serach, setSearch] = useState("");
-  const handelSearch = e => {
+  const handelSearch = (e) => {
     e.preventDefault();
   };
+  const onClickHandler = () => {
+    navigate(`/restaurants/${props.restaurant.id}`);
+  };
+
   return (
     <main>
       <article className="home-hero-section">
@@ -52,7 +58,7 @@ const Home = () => {
               type="text"
               placeholder="Search..."
               value={serach}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
             />
             <Button>Search</Button>
           </form>
@@ -73,6 +79,7 @@ const Home = () => {
             {dummyContent.map((item, idx) => (
               <SwiperSlide key={idx} style={{ width: "fit-content" }}>
                 <ResturantCard
+                  onClick={onClickHandler}
                   title={item.name}
                   address={item.address}
                   totalRatingNumber={item.totalRatingNumber}
