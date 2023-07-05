@@ -22,7 +22,7 @@ from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
 
 from category.views import CategoryListView
-from restaurant.views import RestaurantListView
+from restaurant.views import RestaurantListView, GeneralSearchListView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -41,22 +41,22 @@ urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
-    # users
-    path('api/users/', include('user.urls')),
-
-    # comments
-    path('api/review/comment', include('comment.urls')),
-
-    # token url setup
+    # auth
     path('api/auth/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/auth/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('api/auth/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
 
+    path('api/registration/', include('user_registration.urls')),
+    path('api/auth/password-reset/', include('user_registration.urls')),
+
+    # users
+    path('api/users/', include('user.urls')),
+
+    # main apps
     path('api/restaurants/', include('restaurant.urls')),
     path('api/home/', RestaurantListView.as_view()),
     path('api/reviews/', include('review.urls')),
+    path('api/review/comment/', include('comment.urls')),
     path('api/category/list/', CategoryListView.as_view()),
-
-    path('api/registration/', include('user_registration.urls')),
-    path('api/auth/password-reset/', include('user_registration.urls')),
+    path('api/search/', GeneralSearchListView.as_view())
 ]
