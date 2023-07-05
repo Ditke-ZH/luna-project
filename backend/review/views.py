@@ -1,7 +1,9 @@
 # from django.shortcuts import render
 from django.contrib.auth import get_user_model
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, CreateAPIView, \
+    ListAPIView
 # from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -16,19 +18,9 @@ from review.serializers import ReviewSerializer
 User = get_user_model()
 
 
-class ListCreateReviewsView(ListCreateAPIView):
+class CreateReviewsView(CreateAPIView):
     serializer_class = ReviewSerializer
-    lookup_url_kwarg = "restaurant_id"
-    lookup_field = "restaurant"
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def get_queryset(self):
-        search = self.request.query_params.get('search')
-        if search:
-            return Review.objects.filter(text_content__contains=search)
-        return Review.objects.all()
+    queryset = Review.objects.all()
 
     def post(self, request, *args, **kwargs):
         restaurant_id = self.kwargs.get('restaurant_id')
@@ -38,7 +30,7 @@ class ListCreateReviewsView(ListCreateAPIView):
         return Response(serializer.data)
 
 
-class ListRestaurantReviews(GenericAPIView):
+class ListRestaurantReviewsView(GenericAPIView):
 
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
@@ -49,20 +41,14 @@ class ListRestaurantReviews(GenericAPIView):
         if serializer.data:
             return Response(serializer.data)
         else:
-            return Response(data={"error": "restaurant does not exist"}, status=404)
+            return Response(data={"error": "restaurant has no reviews yet or does not exist"}, status=404)
 
 
-class ListReviewsView(GenericAPIView):
+class ListUserReviewsView(ListAPIView):
     serializer_class = ReviewSerializer
-    queryset = Review.objects.all()
 
-    def get(self, request, *args, **kwargs):
-        if self.kwargs:
-            queryset = self.get_queryset().filter(user=self.kwargs['user_id'])
-        else:
-            queryset = self.get_queryset().filter(user=request.user)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return Review.objects.filter(user=self.kwargs['user_id'])
 
 
 class ListReviewByRestaurantIdView(GenericAPIView):
@@ -81,15 +67,19 @@ class ListReviewByRestaurantIdView(GenericAPIView):
 class RetrieveUpdateDeleteReviewsView(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    lookup_field = 'id'
+    lookup_url_kwarg = 'review_id'
 
     # permission_classes = [IsLoggedInUserOrStaff]
+
+    @swagger_auto_schema(auto_schema=None)
+    def put(self, request, *args, **kwargs):
+        pass
 
 
 class ToggleLikeReview(GenericAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    # lookup_field = 'id'
+    lookup_url_kwarg = 'review_id'
 
     def post(self, request, *args, **kwargs):
         review = self.get_object()
@@ -101,7 +91,7 @@ class ToggleLikeReview(GenericAPIView):
         return Response(self.get_serializer(review).data)
 
 
-class ListLikedReviews(generics.ListCreateAPIView):
+class ListLikedReviews(generics.ListAPIView):
     serializer_class = ReviewSerializer
     # queryset = Review.objects.all()
 
@@ -110,7 +100,7 @@ class ListLikedReviews(generics.ListCreateAPIView):
         return user.likes.all()
 
 
-class ListCommentedReviews(ListCreateAPIView):
+class ListCommentedReviews(ListAPIView):
     serializer_class = CommentSerializer
     # queryset = Review.objects.all()
 
