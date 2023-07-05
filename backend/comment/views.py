@@ -3,6 +3,7 @@ from rest_framework.response import Response
 
 from comment.models import Comment
 from comment.serializers import CommentSerializer
+from project.permissions import IsOwnerAdminOrReadOnly
 from review.models import Review
 
 
@@ -25,6 +26,7 @@ class GetUserCommentsView(RetrieveAPIView):
 
 
 class DeleteCommentView(DestroyAPIView):
+    permission_classes = [IsOwnerAdminOrReadOnly, ]
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
     lookup_url_kwarg = 'comment_id'

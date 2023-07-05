@@ -4,6 +4,8 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, CreateAPIView
 from rest_framework.response import Response
+
+from project.permissions import IsOwnerAdminOrReadOnly
 # from rest_framework.permissions import IsAuthenticated
 
 from review.models import Review
@@ -61,6 +63,7 @@ class ListReviewByRestaurantIdView(GenericAPIView):
 
 
 class RetrieveUpdateDeleteReviewsView(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerAdminOrReadOnly, ]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_url_kwarg = 'review_id'
