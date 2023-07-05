@@ -1,4 +1,4 @@
-import axios from "axios";
+import {axiosMotion} from "../../axios/axiosInstance.js";
 import { useEffect, useState} from "react";
 import "./userProfile.css";
 import zurichSkyline from '../../assets/images/zuerich-skyline.jpg'
@@ -9,10 +9,12 @@ import UserProfileRestaurants from "../../components/UserProfile/UserProfileRest
 import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserProfileEdit.jsx";
 const UserProfile = () => {
     const [user, setUser] = useState(null)
+
      useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/users/me/');
+        const response = await axiosMotion.get('/users/');
+        console.log(response.data)
         setUser(response.data);
         console.log(response.data)
       } catch (error) {
@@ -24,7 +26,7 @@ const UserProfile = () => {
     }, []);
 
     return (
-        <>
+        <main className="user-profile-page-wrapper">
             <div className="user-profile-page-container">
                 <div className="user-profile-page-header">
                     <img className="header-image" src={zurichSkyline} alt="zurich-skyline"/>
@@ -70,7 +72,7 @@ const UserProfile = () => {
                 </div>
             </div>
 
-        </>
+        </main>
     )
 }
 

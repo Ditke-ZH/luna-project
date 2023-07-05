@@ -5,9 +5,9 @@
     align-content: baseline;
     justify-content: center;
     width: 30rem;
-    border: 2px blue solid;
+    /*border: 2px blue solid;*/
     color: black;
-    margin-top: 9%;
+    margin-top: 12%;
     margin-right: 6%;
 }
 
@@ -19,22 +19,36 @@
 .user-profile-edit-text-field{
     border: solid 1px #EAEAEA;
     width: 100%;
-    height: 50%;
+    height: 3rem;
+    margin-bottom: 6%;
 }
-.user-profile-edit-content-container{
-    border-bottom: solid 1px #EAEAEA;
-    border: 2px pink solid;
-}
+
 
 .user-profile-edit-title{
     margin-top: 0.2%;
     margin-bottom: 6%;
-    border: 2px solid fuchsia;
+    /*border: 2px solid fuchsia;*/
 }
 
-.create-edit-button{
-    margin-top: 4%;
+.save-edit-button-delete-container{
     display: flex;
+    flex-direction: column;
+    margin-top: 4%;
     align-items: baseline;
-    justify-content: center;
+    justify-content: stretch;
+    width: 100%;
+    /*border: 2px solid fuchsia;*/
+}
+
+.save-edit-button-delete-list{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 100%;
+    padding: 2% 2%;
+    justify-content: space-between;
+}
+
+.delete-account{
+    color: var(--delete-darkRed);
 }

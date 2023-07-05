@@ -6,6 +6,7 @@ import restaurantSvg from '../../../assets/icons/restaurant.svg'
 import ReviewSvg from '../../../assets/icons/star.svg'
 
 const UserProfileMenu = () => {
+    
   return (
     <div className="user-profile-menu-container">
       <div className="user-profile-menu-list-container">
