@@ -66,7 +66,7 @@ class RestaurantCreateView(CreateAPIView):
 
         # create email to user for confirmation
         mail_instance = EmailScheduler.objects.all()
-        subject = 'Motion-3: new restaurant created'
+        subject = 'Luna-3: new restaurant created'
         message = f'Dear {self.request.user.username}\n\n' \
                   f'You get this email to confirm, that you have just created a new restaurant:\n\n' \
                   f'{serializer.data["name"]} in {serializer.data["city"]}, {serializer.data["country"]}\n\n' \
@@ -89,6 +89,18 @@ class RestaurantGetUpdateDeleteView(RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     lookup_url_kwarg = 'id'
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+        # create email to user for confirmation
+        mail_instance = EmailScheduler.objects.all()
+        subject = 'Luna-3: restaurant updated'
+        message = f'Dear {self.request.user.username}\n\n' \
+                  f'You get this email to confirm, that the data of your restaurant has been updated:\n\n' \
+                  f'{serializer.data["name"]} in {serializer.data["city"]}, {serializer.data["country"]}\n\n' \
+                  f'See you soon on luna3!'
+        mail_instance.create(subject=subject, message=message, recipient_list=self.request.user.email)
 
     @swagger_auto_schema(auto_schema=None)
     def put(self, request, *args, **kwargs):

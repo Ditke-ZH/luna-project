@@ -5,6 +5,7 @@ from rest_framework import generics
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, CreateAPIView
 from rest_framework.response import Response
 
+from email_scheduler.models import EmailScheduler
 from project.permissions import IsOwnerAdminOrReadOnly
 # from rest_framework.permissions import IsAuthenticated
 
@@ -87,6 +88,16 @@ class ToggleLikeReview(GenericAPIView):
             review.liked_by.remove(user)
         else:
             review.liked_by.add(user)
+
+            # create email to review-author
+            mail_instance = EmailScheduler.objects.all()
+            subject = 'Luna-3: your review got liked'
+            message = f'Dear {review.user.username}\n\n' \
+                      f'Your review on {review.restaurant.name} just got a like.\n\n' \
+                      f'So go on, and review other restaurants!\n\n' \
+                      f'See you soon on luna3!'
+            mail_instance.create(subject=subject, message=message, recipient_list=review.user.email)
+
         return Response(self.get_serializer(review).data)
 
 
