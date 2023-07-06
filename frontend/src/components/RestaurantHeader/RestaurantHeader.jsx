@@ -1,8 +1,3 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
-import StarRating from "../StarRating/indx";
 import "./RestaurantHeader.css";
 
 export default function RestaurantHeader({ resturantData }) {
