@@ -42,7 +42,7 @@ const UserProfile = () => {
   };
 
     return (
-        <main className="user-profile-page-wrapper">
+        <main className="new-review-page-wrapper">
             <div className="user-profile-page-container">
                 <div className="user-profile-page-header">
                     <img className="header-image" src={zurichSkyline} alt="zurich-skyline"/>
@@ -50,8 +50,7 @@ const UserProfile = () => {
                 <div className="user-main-body-container">
                     <div className="user-img-menu-container">
                         <div className="user-image-container">
-                            {/*<img className="user-image" src={user && user.profile_picture ? user.profile_picture : profilePicture} alt="user-profile-picture"/>*/}
-                             <img className="user-image" src='http://localhost:8000/media-files/avataaars_1.png' alt="user-profile-picture"/>
+                            <img className="user-image" src={user && user.profile_picture ? user.profile_picture : profilePicture} alt="user-profile-picture"/>
                             <UserProfileMenu onItemClick={handleMenuItemClick}/>
                         </div>
                     </div>
