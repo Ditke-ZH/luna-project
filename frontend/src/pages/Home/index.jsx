@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector, useDispatch } from "react-redux";
 import { axiosLuna } from "../../axios/axiosInstance";
 import { setAllInformation } from "../../store/slices/user";
+import ImagePlaceHolder from "../../assets/images/resturnat-image-placeholder.jpg";
 import "./home.css";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,12 +19,21 @@ const Home = () => {
   const userLoggedInEmail = useSelector(state => state.user?.email);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [serach, setSearch] = useState("");
+  const [searchString, setSearchString] = useState("");
+  //const [favRestaurants, setFavRestaurants] = useState([]);
 
-  console.log(userLoggedInEmail, "Logged User");
+  /*  useEffect(() => {
+    const getFetchData = async () => {
+      const res = await axiosLuna.get(`/home`);
+      const data = res?.data;
+      setFavRestaurants(data);
+    };
+    getFetchData();
+  }, []); */
 
   const handelSearch = e => {
     e.preventDefault();
+    navigate(`/search/??type=restaurants&search_string=${searchString}`);
   };
   const onClickHandler = id => {
     navigate(`search/restaurants/${id}`);
@@ -80,8 +90,8 @@ const Home = () => {
               className="search-input"
               type="text"
               placeholder="Search..."
-              value={serach}
-              onChange={e => setSearch(e.target.value)}
+              value={searchString}
+              onChange={e => setSearchString(e.target.value)}
             />
             <Button>Search</Button>
           </form>
@@ -110,7 +120,8 @@ const Home = () => {
                   address={item.street}
                   totalRatingNumber={item.review_count}
                   StarsNumber={item.rating_average}
-                  image={item.image}
+                  image={item.image || ImagePlaceHolder}
+                  id={item.id}
                 />
               </SwiperSlide>
             ))}
