@@ -13,7 +13,7 @@ class Review(models.Model):
     rating = models.IntegerField(default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, related_name='reviews')
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='reviews')
     restaurant = models.ForeignKey(to=Restaurant, on_delete=models.CASCADE, related_name='reviews')
     liked_by = models.ManyToManyField(to=User, related_name='likes', blank=True)
 

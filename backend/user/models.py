@@ -8,12 +8,12 @@ class User(AbstractUser):
 
     # Additional fields for createsuperuser
     REQUIRED_FIELDS = ['username']
-    first_name = models.CharField(max_length=100, blank=True, default='')
-    last_name = models.CharField(max_length=120, blank=True, default='')
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=120, blank=True)
     email = models.EmailField(unique=True)
-    location = models.CharField(max_length=120, blank=True, default='')
-    user_phone = models.CharField(max_length=12, blank=True, default='')
-    user_description = models.CharField(max_length=320, blank=True, default='')
+    location = models.CharField(max_length=120, blank=True)
+    user_phone = models.CharField(max_length=12, blank=True)
+    user_description = models.CharField(max_length=320, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     profile_picture = models.ImageField(blank=True, null=True)
 
