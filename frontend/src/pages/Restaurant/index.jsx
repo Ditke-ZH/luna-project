@@ -6,22 +6,22 @@ import RestaurantReview from "../../components/RestaurantReview/RestaurantReview
 import RestaurantInformation from "../../components/RestaurantInformation/RestaurantInformation";
 import { axiosLuna } from "../../axios/axiosInstance";
 import Container from "../../components/container/Container";
-import StarRating from "../../components/StarRating/indx";
+import StarRating from "../../components/StarRating";
 import Button from "../../components/Button/Button";
 
 export default function RestaurantPage() {
-  const { resturantId } = useParams();
+  const { restaurantId } = useParams();
 
   const [fetchData, setFetchData] = useState([]);
 
   useEffect(() => {
     const getFetchData = async () => {
-      const res = await axiosLuna.get(`/restaurants/${resturantId}`);
+      const res = await axiosLuna.get(`/restaurants/${restaurantId}`);
       const data = res?.data;
       setFetchData(data);
     };
     getFetchData();
-  }, [resturantId]);
+  }, [restaurantId]);
   console.log(fetchData);
   const reviews = [fetchData?.restaurant_reviews];
 

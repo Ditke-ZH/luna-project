@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RiStarSFill } from "react-icons/ri";
 import "./startRating.css";
 
-const StarRating = ({ StarRating, totalRatingNumber, ExtraClasses }) => {
+const StarRating = ({ StarRating, totalRatingNumber, ExtraClasses, Input = false }) => {
   const [ratingSet, setRating] = useState();
 
   return (

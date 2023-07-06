@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileReviews.css";
 import {axiosLuna} from "../../../axios/axiosInstance.js";
-import StarRating from "../../StarRating/indx.jsx";
+import StarRating from "../../StarRating";
 
 
 const UserProfileReviews = () => {
