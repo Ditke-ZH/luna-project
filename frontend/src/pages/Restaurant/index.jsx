@@ -7,6 +7,7 @@ import RestaurantInformation from "../../components/RestaurantInformation/Restau
 import { axiosLuna } from "../../axios/axiosInstance";
 import Container from "../../components/container/Container";
 import StarRating from "../../components/StarRating/indx";
+import Button from "../../components/Button/Button";
 
 export default function RestaurantPage() {
   const { resturantId } = useParams();
@@ -24,6 +25,8 @@ export default function RestaurantPage() {
   console.log(fetchData);
   const reviews = [fetchData?.restaurant_reviews];
 
+  const filterReviews = (e) => {};
+
   return (
     <article className="RestaurantPageDiv">
       <div
@@ -34,7 +37,7 @@ export default function RestaurantPage() {
           <div className="restaurant-title-rating">
             <div>
               <h1>{fetchData.name}</h1>
-              {fetchData.categories?.map(item => <p>{item}</p>) || (
+              {fetchData.categories?.map((item) => <p>{item}</p>) || (
                 <p>Unknown</p>
               )}
               <StarRating
@@ -56,13 +59,15 @@ export default function RestaurantPage() {
                 placeholder="Filter list..."
                 className="FilterBar"
               />
-              <button href="#" className="FilterButton">
+              <Button externalClass={"FilterButton"} onClick={filterReviews}>
                 FILTER
-              </button>
+              </Button>
             </div>
             <div className="cardContainer">
               {reviews.map((value, index) => {
-                return <RestaurantReview key={index} />;
+                return (
+                  <RestaurantReview restaurantData={fetchData} key={index} />
+                );
               })}
             </div>
           </div>
