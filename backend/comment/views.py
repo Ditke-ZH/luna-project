@@ -9,6 +9,10 @@ from review.models import Review
 
 
 class CreateCommentView(CreateAPIView):
+    """
+        post:
+        Comment on a review by providing the review id
+    """
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
 
@@ -34,12 +38,20 @@ class CreateCommentView(CreateAPIView):
 
 
 class GetUserCommentsView(RetrieveAPIView):
+    """
+        get:
+        Get all the comments from a single user by user_id
+    """
     serializer_class = CommentSerializer
     queryset = Comment.objects.all().order_by('-date_created')
     lookup_field = 'user_id'
 
 
 class DeleteCommentView(DestroyAPIView):
+    """
+        delete:
+        Delete a comment by providing the comment id (owner or admin only)
+    """
     permission_classes = [IsOwnerAdminOrReadOnly, ]
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
