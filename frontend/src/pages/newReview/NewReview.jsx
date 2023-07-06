@@ -21,18 +21,21 @@ const NewReview = () => {
                             <div className="select-your-stars">
                             <StarRating/>
                             <p className="select-rating">Select your rating:</p>
-                            </div>
                         </div>
                         <div className="review-input-container">
-                            <input type="text"/>
+                            <input className="review-user-input-text" placeholder="Your review helps others learn about great local businesses.
+Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees." type="text"/>
                         </div>
-                        <div className="save-edit-button-delete-container">
-                            <ul className="save-edit-button-delete-list">
-                                <li className="save-edit"><Button>Save</Button></li>
-                                <li className="delete-account">Delete Account</li>
+
+                        <div className="review-save-edit-button-delete-container">
+                            <ul className="review-save-edit-button-delete-list">
+                                <li className="review-delete-account">This Field is required</li>
+                                <li className="review-save-edit"><Button>Submit</Button></li>
+
 
                             </ul>
                         </div>
+                            </div>
                     </div>
                 </div>
             </main>
