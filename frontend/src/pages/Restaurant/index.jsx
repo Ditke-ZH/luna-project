@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./restaurant.css";
-import RestaurantHeader from "../../components/RestaurantHeader/RestaurantHeader";
 import LocationInformation from "../../Components/LocationInformation/LocationInformation";
 import RestaurantReview from "../../components/RestaurantReview/RestaurantReview";
 import RestaurantInformation from "../../Components/RestaurantInformation/RestaurantInformation";
 import { axiosLuna } from "../../axios/axiosInstance";
-import Loader from "../../components/Loader/Loader";
 import Container from "../../components/container/Container";
 import StarRating from "../../components/StarRating/indx";
 
@@ -22,7 +20,7 @@ export default function RestaurantPage() {
       setFetchData(data);
     };
     getFetchData();
-  }, []);
+  }, [resturantId]);
   console.log(fetchData);
   const reviews = [fetchData?.restaurant_reviews];
 
