@@ -3,24 +3,34 @@ import {useEffect, useState} from "react";
 import "./userProfile.css";
 import zurichSkyline from '../../assets/images/zuerich-skyline.jpg'
 import profilePicture from '../../assets/images/profile-picture.png'
-import userPicture from '../../assets/images/profile-picture.png';
 import UserProfileMenu from "../../components/UserProfile/UserProfileMenu/UserProfileMenu.jsx";
 import UserProfileRestaurants from "../../components/UserProfile/UserProfileRestaurants/UserProfileRestaurants.jsx";
 import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserProfileEdit.jsx";
 import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
 import UserProfileComments from "../../components/UserProfile/UserProfileComments/UserProfileComments.jsx";
+import { useLocation, useParams } from "react-router-dom"
 
 const UserProfile = () => {
     const [user, setUser] = useState(null)
     const [selectedMenuItem, setSelectedMenuItem] = useState("reviews");
+    const location = useLocation()
+    const { userId } = useParams()
 
     const handleMenuItemClick = (menu) => {
         setSelectedMenuItem(menu);
     };
 
-    const fetchUserData = async () => {
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            let url = '/users/'
+            if (location.pathname === "/profile") {
+                url += 'me/'
+            } else {
+                url += userId + '/'
+            }
             try {
-                const response = await axiosLuna.get('/users/1/');
+                const response = await axiosLuna.get(url);
                 console.log(response, '>>> User line23')
                 setUser(response.data);
                 console.log(response.data, '>>> User line26')
@@ -30,9 +40,8 @@ const UserProfile = () => {
             }
         };
 
-    useEffect(() => {
         fetchUserData();
-    }, []);
+    }, [location.pathname, userId]);
 
     const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -50,13 +59,13 @@ const UserProfile = () => {
                 <div className="user-main-body-container">
                     <div className="user-img-menu-container">
                         <div className="user-image-container">
-                            <img className="user-image" src={user && user.profile_picture ? user.profile_picture : profilePicture} alt="user-profile-picture"/>
+                            <img className="user-image" src={user?.profile_picture ? user.profile_picture : profilePicture} alt="user-profile-picture"/>
                             <UserProfileMenu onItemClick={handleMenuItemClick}/>
                         </div>
                     </div>
                     <div className="user-info-reviews">
                         <div className="user-info">
-                            <h2 className="user-info-full-name">{user && user.first_name} {user && user.last_name && user.last_name.charAt(0)}.</h2>
+                            <h2 className="user-info-full-name">{user?.first_name} {user?.last_name?.charAt(0)}.</h2>
                             <p className="user-info-elements">{user && user.location}</p>
                             <p className="user-info-elements">6 reviews</p>
                             <p className="user-info-elements">210 comments</p>

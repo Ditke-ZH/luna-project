@@ -24,8 +24,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/search" element={<Search />} />
-            <Route path="search/users" element={<UserProfile />}/>
-            <Route path="/user-profile" element={<UserProfile />}/>
+            <Route path="/search/users/:userId" element={<UserProfile />}/>
+            <Route path="/profile" element={<UserProfile />}/>
             <Route path="/new-review" element={<NewReview />}/>
             <Route
               path="search/restaurants/:resturantId"
