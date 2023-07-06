@@ -12,7 +12,7 @@ PRICE_LEVEL_CHOICES = [
 
 
 def user_directory_path(instance, filename):
-    return f'user/{instance.id}/{filename}'
+    return f'restaurant/{instance.id}/{filename}'
 
 
 class Restaurant(models.Model):
@@ -27,7 +27,7 @@ class Restaurant(models.Model):
     email = models.EmailField(max_length=100, blank=True)
     opening_hours = models.CharField(max_length=100)
     price_level = models.IntegerField(choices=PRICE_LEVEL_CHOICES, default=1)
-    image = models.ImageField(max_length=255, blank=True, null=True, upload_to=user_directory_path)
+    image = models.ImageField(blank=True, null=True, upload_to=user_directory_path)
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='restaurants')
     created = models.DateTimeField(auto_now_add=True)
     rating_average = models.FloatField(default=0)
