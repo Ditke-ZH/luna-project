@@ -1,12 +1,17 @@
 import axios from "axios";
 
 const baseUrl = import.meta.env.VITE_API_BASEURL;
-const token = localStorage.getItem("loginToke");
+const token = localStorage.getItem("accessToken");
 
-export const axiosLuna = axios.create({
+const instance = axios.create({
   baseURL: baseUrl,
-  headers: {
+});
+
+if (token) {
+  instance["headers"] = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
-  },
-});
+  };
+}
+
+export const axiosLuna = instance;

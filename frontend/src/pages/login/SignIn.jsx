@@ -23,10 +23,10 @@ const SignIn = () => {
         })
         .then(res => {
           if (res.status === 200) {
-            const accesToken = res.data.access;
-            localStorage.setItem("loginToke", JSON.stringify(accesToken));
+            const accessToken = res.data.access;
+            localStorage.setItem("accessToken", JSON.stringify(accessToken));
             setErrorMessage(null);
-            dispatch(login(accesToken));
+            dispatch(login(accessToken));
             navigate("/", { replace: true });
           }
         })

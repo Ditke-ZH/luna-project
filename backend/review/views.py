@@ -18,6 +18,10 @@ User = get_user_model()
 
 
 class CreateReviewsView(CreateAPIView):
+    """
+        post:
+        Create new review for a restaurant
+    """
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
 
@@ -30,7 +34,10 @@ class CreateReviewsView(CreateAPIView):
 
 
 class ListRestaurantReviewsView(GenericAPIView):
-
+    """
+        get:
+        Get the list of the reviews for a single restaurant
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
@@ -44,6 +51,10 @@ class ListRestaurantReviewsView(GenericAPIView):
 
 
 class ListUserReviewsView(ListAPIView):
+    """
+        get:
+        Get the list of the reviews by a single user
+    """
     serializer_class = ReviewSerializer
 
     def get_queryset(self):
@@ -64,6 +75,16 @@ class ListReviewByRestaurantIdView(GenericAPIView):
 
 
 class RetrieveUpdateDeleteReviewsView(RetrieveUpdateDestroyAPIView):
+    """
+        get:
+        Get a specific review by ID and display all the information
+
+        patch:
+        Update a specific review (allowed only for owner or admin)
+
+        delete:
+        Delete a specific review (allowed only for owner or admin)
+    """
     permission_classes = [IsOwnerAdminOrReadOnly, ]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
@@ -77,6 +98,10 @@ class RetrieveUpdateDeleteReviewsView(RetrieveUpdateDestroyAPIView):
 
 
 class ToggleLikeReview(GenericAPIView):
+    """
+        post:
+        toggle like on a review
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_url_kwarg = 'review_id'
@@ -102,6 +127,10 @@ class ToggleLikeReview(GenericAPIView):
 
 
 class ListLikedReviews(generics.ListAPIView):
+    """
+        get:
+        Get the list of the reviews the current user liked
+    """
     serializer_class = ReviewSerializer
     # queryset = Review.objects.all()
 
@@ -111,6 +140,10 @@ class ListLikedReviews(generics.ListAPIView):
 
 
 class ListCommentedReviews(ListAPIView):
+    """
+        get:
+        Get the list of the reviews the current user commented
+    """
     serializer_class = ReviewSerializer
 
     def get_queryset(self):
