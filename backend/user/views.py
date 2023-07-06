@@ -52,7 +52,6 @@ class RetrieveUpdateDeleteUserView(RetrieveUpdateDestroyAPIView):
         instance.save()
         return Response(status=status.HTTP_200_OK)
 
-
     @swagger_auto_schema(auto_schema=None)
     def put(self, request, *args, **kwargs):
         pass
