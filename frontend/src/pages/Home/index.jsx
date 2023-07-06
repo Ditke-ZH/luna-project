@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Button from "../../components/Button/Button";
@@ -6,50 +6,40 @@ import ResturantCard from "../../components/ResturantCard";
 import ImagePlaceHolder from "../../assets/images/resturnat-image-placeholder.jpg";
 import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import { useSelector } from "react-redux";
 import "./home.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-const dummyContent = [
-  {
-    name: "Resturant Name",
-    address: "Address",
-    totalRatingNumber: 20,
-    startsNumber: 5,
-  },
-  {
-    name: "Resturant Name",
-    address: "Address",
-    totalRatingNumber: 50,
-    startsNumber: 2,
-  },
-  {
-    name: "Resturant Name",
-    address: "Address",
-    totalRatingNumber: 10,
-    startsNumber: 3,
-  },
-  {
-    name: "Resturant Name",
-    address: "Address",
-    totalRatingNumber: 30,
-    startsNumber: 1,
-  },
-];
+import {axiosLuna} from "../../axios/axiosInstance.js";
 
 const Home = () => {
+  const userAllInformation = useSelector(state => state.user.setAllInformation);
   const navigate = useNavigate();
   const [serach, setSearch] = useState("");
-  const handelSearch = (e) => {
+  const [favRestaurants, setFavRestaurants] = useState([])
+
+  useEffect(() => {
+    const getFetchData = async () => {
+      const res = await axiosLuna.get(`/home`);
+      const data = res?.data;
+      console.log(data)
+      setFavRestaurants(data);
+    };
+    getFetchData();
+  }, []);
+
+  const handelSearch = e => {
     e.preventDefault();
   };
   const onClickHandler = () => {
-    navigate(`/restaurants/${props.restaurant.id}`);
+    navigate(`/restaurants/${""}`);
   };
-
+  console.log(userAllInformation);
+  // useEffect(() => {}, []);
   return (
-    <main>
+    <>
       <article className="home-hero-section">
         <Container>
           <form className="search-conatiner" onSubmit={handelSearch}>
@@ -58,7 +48,7 @@ const Home = () => {
               type="text"
               placeholder="Search..."
               value={serach}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
             />
             <Button>Search</Button>
           </form>
@@ -76,22 +66,22 @@ const Home = () => {
             autoplay={{ delay: 2000 }}
             loop={true}
           >
-            {dummyContent.map((item, idx) => (
+            {favRestaurants.map((item, idx) => (
               <SwiperSlide key={idx} style={{ width: "fit-content" }}>
                 <ResturantCard
                   onClick={onClickHandler}
                   title={item.name}
-                  address={item.address}
-                  totalRatingNumber={item.totalRatingNumber}
-                  StarsNumber={item.startsNumber}
-                  image={ImagePlaceHolder}
+                  address={item.street}
+                  totalRatingNumber={item.review_count}
+                  StarsNumber={item.rating_average}
+                  image={item.image ? item.image : ImagePlaceHolder}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
         </article>
       </Container>
-    </main>
+    </>
   );
 };
 
