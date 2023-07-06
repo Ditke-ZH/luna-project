@@ -5,6 +5,10 @@ import web from "../../assets/icons/web.svg";
 import "./LocationInformation.css";
 
 export default function LocationInformation({ restaurantData }) {
+  const website = restaurantData.website || "";
+  const trimmedWebsite = website.replace(/^https?:\/\/(www\.)?/, "");
+  const trimmedWebsiteWithoutSlash = trimmedWebsite.replace(/\/$/, "");
+
   return (
     <div className="LocationInformationDiv">
       <div className="TopDiv">
@@ -21,7 +25,9 @@ export default function LocationInformation({ restaurantData }) {
         </div>
         <div className="website">
           <img src={web} alt="Web Icon" height="26" />
-          <a href="https://laderach.com/ch-en/">laederach.com</a>
+          <a href={restaurantData.website} target="_blank">
+            {trimmedWebsiteWithoutSlash}
+          </a>
         </div>
       </div>
     </div>
