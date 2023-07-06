@@ -23,7 +23,7 @@ const userSlice = createSlice({
     login: (state, action) => {
       state.accessToken = action.payload;
     },
-    logout: (state) => {
+    logout: state => {
       state.accessToken = null;
       state.details = null;
     },
@@ -44,6 +44,7 @@ const userSlice = createSlice({
         location,
         about,
         phone,
+        email,
       } = action.payload;
       state.firstName = firstName;
       state.lastName = lastName;
@@ -53,6 +54,7 @@ const userSlice = createSlice({
       state.location = location;
       state.about = about;
       state.phone = phone;
+      state.email = email;
     },
   },
 });

@@ -1,13 +1,45 @@
 import { useState } from "react";
 import Button from "../../components/Button/Button";
+import { axiosLuna } from "../../axios/axiosInstance";
 import "./signin.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slices/user";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handelLogIn = e => {
     e.preventDefault();
+    const localToken = localStorage.getItem("token");
+    if (localToken === null || localToken === undefined) {
+      axiosLuna
+        .post("/auth/token/", {
+          email: email,
+          password: password,
+        })
+        .then(res => {
+          if (res.status === 200) {
+            const accesToken = res.data.access;
+            localStorage.setItem("loginToke", JSON.stringify(accesToken));
+            setErrorMessage(null);
+            dispatch(login(accesToken));
+            navigate("/", { replace: true });
+          }
+        })
+        .catch(err => {
+          if (err.message == "Request failed with status code 401") {
+            setErrorMessage("Your email or password is not correct!");
+          }
+
+          console.log(err);
+        });
+    }
   };
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+
   return (
     <main className="login-page-container">
       <h1 className="page-title">Login</h1>
@@ -16,10 +48,10 @@ const SignIn = () => {
         <input
           className="input-field signup-input"
           type="text"
-          placeholder="Username"
-          value={userName}
+          placeholder="Email"
+          value={email}
           required
-          onChange={e => setUserName(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
         />
         <input
           className="input-field signup-input"
@@ -29,6 +61,7 @@ const SignIn = () => {
           required
           onChange={e => setPassword(e.target.value)}
         />
+        {errorMessage && <p className="signup-erro-message">{errorMessage}</p>}
         <Button type="submit">Login</Button>
       </form>
     </main>

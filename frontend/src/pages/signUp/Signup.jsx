@@ -1,6 +1,10 @@
 import { useState } from "react";
 import Button from "../../components/Button/Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllInformation } from "../../store/slices/user";
+import Loader from "../../components/Loader/Loader";
 import "./signup.css";
 
 const Signup = () => {
@@ -8,22 +12,35 @@ const Signup = () => {
   const [signUpSteps, setSignUpSteps] = useState(1);
   const [emaiVerification, setEmailverification] = useState("");
   const [validationCode, setValidationCode] = useState("");
-  const [userName, setUserName] = useState("");
-  const [location, setLocation] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [username, setUserName] = useState("");
   const [errorMessage, setErroMessage] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userAllInformation = useSelector(state => state.user.setAllInformation);
 
   const handelSubmitEmail = e => {
     e.preventDefault();
-    axios.post(
-      `${import.meta.env.VITE_API_BASEURL}/backend/api/registration/`,
-      {
-        email: emailValue,
+    const signUp = async () => {
+      try {
+        const req = await axios.post(
+          `${import.meta.env.VITE_API_BASEURL}/registration/`,
+          {
+            email: emailValue,
+          }
+        );
+        setSignUpSteps(signUpSteps + 1);
+      } catch (err) {
+        await setErroMessage(
+          `${err.response?.data?.email?.[0]} or ${err.response?.data?.username?.[0]}`
+        );
       }
-    );
-    console.log(emailValue);
-    setSignUpSteps(signUpSteps + 1);
+    };
+    signUp();
   };
 
   const handelVerificationFrom = e => {
@@ -32,19 +49,35 @@ const Signup = () => {
       setErroMessage("Password doesn't match");
       return;
     }
-
-    const userData = {
-      userEmail: emaiVerification,
-      username: userName,
-      userlocation: location,
-      password: password,
+    const verify = async () => {
+      try {
+        const req = await axios.post(
+          `${import.meta.env.VITE_API_BASEURL}/registration/validate/`,
+          {
+            email: emaiVerification,
+            code: validationCode,
+            first_name: firstName,
+            last_name: lastName,
+            password: password,
+            password_repeat: passwordRepeat,
+            username: username,
+          }
+        );
+        if (req.status === 200) {
+          dispatch(
+            setAllInformation(...userAllInformation, {
+              username: username,
+              email: emaiVerification,
+            })
+          );
+          navigate("/login");
+        }
+      } catch (err) {
+        console.log(err.response, "tessssssst");
+        console.log(errorMessage, "cutom error message");
+      }
     };
-    axios.post("http://localhost:5173/backend/api/registration/validate/", {
-      userData,
-    });
-
-    console.log(emailValue);
-    setSignUpSteps(3);
+    verify();
   };
 
   return (
@@ -53,7 +86,11 @@ const Signup = () => {
         {signUpSteps == 1 || signUpSteps == 2 ? "Registration" : "Verification"}
       </h1>
       {signUpSteps == 1 && (
-        <form onSubmit={handelSubmitEmail} className="signup-form-container">
+        <form
+          onSubmit={handelSubmitEmail}
+          className="signup-form-container"
+          id="1"
+        >
           <input
             className="input-field signup-input"
             type="email"
@@ -62,6 +99,21 @@ const Signup = () => {
             required
             onChange={e => setEmailValue(e.target.value)}
           />
+          {errorMessage && (
+            <>
+              <p className="signup-erro-message">{errorMessage}</p>
+              <a
+                href="#"
+                onClick={() => {
+                  setSignUpSteps(3);
+                  setErroMessage("");
+                }}
+              >
+                Please verify your Email
+              </a>
+            </>
+          )}
+
           <Button type="submit">Register</Button>
         </form>
       )}
@@ -85,6 +137,7 @@ const Signup = () => {
         <form
           onSubmit={handelVerificationFrom}
           className="signup-verification-form-container"
+          id="3"
         >
           <div className="signup-verification-row">
             <input
@@ -108,16 +161,18 @@ const Signup = () => {
             <input
               className="input-field signup-input"
               type="text"
-              placeholder="Username"
-              value={userName}
-              onChange={e => setUserName(e.target.value)}
+              placeholder="First name"
+              value={firstName}
+              required
+              onChange={e => setFirstName(e.target.value)}
             />
             <input
               className="input-field signup-input"
               type="text"
-              placeholder="Location"
-              value={location}
-              onChange={e => setLocation(e.target.value)}
+              placeholder="Last name"
+              value={lastName}
+              required
+              onChange={e => setLastName(e.target.value)}
             />
           </div>
           <div className="signup-verification-row">
@@ -138,6 +193,14 @@ const Signup = () => {
               onChange={e => setPasswordRepeat(e.target.value)}
             />
           </div>
+          <input
+            className="input-field signup-input"
+            type="text"
+            placeholder="Username"
+            value={username}
+            required
+            onChange={e => setUserName(e.target.value)}
+          />
           <p className="signup-erro-message">{errorMessage}</p>
           <Button type="submit">Finish registration</Button>
         </form>
