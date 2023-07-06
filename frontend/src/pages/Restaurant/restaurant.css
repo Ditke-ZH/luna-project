@@ -1,7 +1,33 @@
 .Header-div {
-  height: 496px;
+  height: 31rem;
+  width: 100%;
+  background-size: cover;
+  position: relative;
 }
-
+.Header-div::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12.75rem;
+  background: var(--link-black);
+  filter: brightness(0.3);
+  -webkit-filter: brightness(0.3);
+  opacity: 0.3;
+}
+.restaurant-title-rating {
+  height: 12.75rem;
+  color: var(--white-luna);
+  padding-top: 2.6rem;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+}
+.resturant-stars {
+  width: 15rem;
+}
 .Bottom-div {
   display: flex;
   flex-direction: row;
