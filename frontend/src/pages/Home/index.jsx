@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Button from "../../components/Button/Button";
@@ -6,7 +6,7 @@ import ResturantCard from "../../components/ResturantCard";
 import ImagePlaceHolder from "../../assets/images/resturnat-image-placeholder.jpg";
 import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { login, setAllInformation } from "../../store/slices/user";
+
 import { useSelector } from "react-redux";
 import "./home.css";
 import "swiper/css";

@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllInformation } from "../../store/slices/user";
-import Loader from "../../components/Loader/Loader";
 import "./signup.css";
 
 const Signup = () => {
@@ -25,22 +24,16 @@ const Signup = () => {
 
   const handelSubmitEmail = e => {
     e.preventDefault();
-    const signUp = async () => {
-      try {
-        const req = await axios.post(
-          `${import.meta.env.VITE_API_BASEURL}/registration/`,
-          {
-            email: emailValue,
-          }
-        );
-        setSignUpSteps(signUpSteps + 1);
-      } catch (err) {
-        await setErroMessage(
+    axios
+      .post(`${import.meta.env.VITE_API_BASEURL}/registration/`, {
+        email: emailValue,
+      })
+      .then(setSignUpSteps(signUpSteps + 1))
+      .catch(err =>
+        setErroMessage(
           `${err.response?.data?.email?.[0]} or ${err.response?.data?.username?.[0]}`
-        );
-      }
-    };
-    signUp();
+        )
+      );
   };
 
   const handelVerificationFrom = e => {
