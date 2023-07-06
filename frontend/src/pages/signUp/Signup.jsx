@@ -63,11 +63,10 @@ const Signup = () => {
               email: emaiVerification,
             })
           );
-          navigate("/login");
+          navigate("/login", { replace: true });
         }
       } catch (err) {
-        console.log(err.response, "tessssssst");
-        console.log(errorMessage, "cutom error message");
+        setErroMessage(err.message);
       }
     };
     verify();

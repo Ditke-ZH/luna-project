@@ -1,39 +1,86 @@
-import {useEffect, useState} from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "../../components/container/Container";
 import Button from "../../components/Button/Button";
 import ResturantCard from "../../components/ResturantCard";
-import ImagePlaceHolder from "../../assets/images/resturnat-image-placeholder.jpg";
 import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { axiosLuna } from "../../axios/axiosInstance";
+import { setAllInformation } from "../../store/slices/user";
+import ImagePlaceHolder from "../../assets/images/resturnat-image-placeholder.jpg";
 import "./home.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {axiosLuna} from "../../axios/axiosInstance.js";
 
 const Home = () => {
-  const userAllInformation = useSelector(state => state.user.setAllInformation);
+  const [restaurantsData, setRestaurantsData] = useState();
+  const userLoggedInEmail = useSelector(state => state.user?.email);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [searchString, setSearchString] = useState("");
-  const [favRestaurants, setFavRestaurants] = useState([])
+  //const [favRestaurants, setFavRestaurants] = useState([]);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const getFetchData = async () => {
       const res = await axiosLuna.get(`/home`);
       const data = res?.data;
       setFavRestaurants(data);
     };
     getFetchData();
-  }, []);
+  }, []); */
 
   const handelSearch = e => {
     e.preventDefault();
-    navigate(`/search/??type=restaurants&search_string=${searchString}`)
+    navigate(`/search/??type=restaurants&search_string=${searchString}`);
+  };
+  const onClickHandler = id => {
+    navigate(`search/restaurants/${id}`);
+    console.log("clicked");
   };
 
+  useEffect(() => {
+    axiosLuna
+      .get("/restaurants/")
+      .then(res => setRestaurantsData(res.data))
+      .catch(err => console.log(err.message));
+  }, []);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const res = await axiosLuna.get("/users/");
+        console.log(res.data);
+        const loggedUser = res.data?.find(
+          item => item.email === userLoggedInEmail
+        );
+        console.log(loggedUser, "loggeduser Email");
+        if (loggedUser) {
+          console.log(loggedUser, "loggeduser Email");
+          dispatch(
+            setAllInformation({
+              firstName: loggedUser.first_name,
+              lastName: loggedUser.last_name,
+              username: loggedUser.username,
+              avatar: loggedUser.profile_picture,
+              banner: "",
+              location: loggedUser.location,
+              about: "",
+              phone: loggedUser.user_phone,
+              email: loggedUser.email,
+            })
+          );
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    if (userLoggedInEmail) {
+      fetchUserDetails();
+    }
+  }, [dispatch, userLoggedInEmail]);
   return (
     <>
       <article className="home-hero-section">
@@ -57,19 +104,23 @@ const Home = () => {
             className="resturant-cards-container"
             modules={[Navigation, Autoplay]}
             centeredSlides
-            slidesPerView={4}
+            slidesPerView={3}
             spaceBetween={20}
-            autoplay={{ delay: 2000 }}
+            autoplay={{ delay: 3000 }}
             loop={true}
           >
-            {favRestaurants.map((item, idx) => (
-              <SwiperSlide key={idx} style={{ width: "fit-content" }}>
+            {restaurantsData?.map((item, idx) => (
+              <SwiperSlide
+                key={idx}
+                style={{ width: "fit-content" }}
+                onClick={() => onClickHandler(item.id)}
+              >
                 <ResturantCard
                   title={item.name}
                   address={item.street}
                   totalRatingNumber={item.review_count}
                   StarsNumber={item.rating_average}
-                  image={item.image ? item.image : ImagePlaceHolder}
+                  image={item.image || ImagePlaceHolder}
                   id={item.id}
                 />
               </SwiperSlide>
