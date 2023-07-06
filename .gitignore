@@ -9,6 +9,7 @@
 /.idea/
 *.sqlite3
 /app/user_files/*
+*.local
 
 # Logs
 logs
