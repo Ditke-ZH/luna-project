@@ -21,9 +21,8 @@ const NewReview = () => {
 
     useEffect(() => {
         const fetchRestaurantData = async () => {
-            const data = {}  // todo: put in data...
             try {
-                const response = await axiosLuna.get(`/restaurants/${restaurantId}`, data);
+                const response = await axiosLuna.get(`/restaurants/${restaurantId}`);
                 console.log(response.data)
                 setRestaurant(response.data);
             } catch (error) {
@@ -35,8 +34,12 @@ const NewReview = () => {
     }, [restaurantId]);
 
     const sendReview = async () => {
+            const data = {
+                "text_content": review,
+                "rating": rating
+            }
         try {
-            const response = await axiosLuna.post(`/reviews/new/${restaurantId}`);
+            const response = await axiosLuna.post(`/reviews/new/${restaurantId}`, data);
             console.log(response.data)
             navigate(`/search/restaurants/${restaurantId}`)
         } catch (error) {
