@@ -1,30 +1,60 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./UserProfileReviews.css";
+import {axiosMotion} from "../../../axios/axiosInstance.js";
 
 
 const UserProfileReviews = () => {
+    const [reviews, setReviews] = useState([])
+    const fetchReviewData = async () => {
+        try {
+            const response = await axiosMotion.get('/reviews/user/1/');
+            console.log(response, 'line11 >>> Reviews')
+            setReviews(response.data);
+        } catch (error) {
+            console.error('Error fetching review data:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchReviewData();
+    }, []);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, "0");
+         const minutes = String(date.getMinutes()).padStart(2, "0");
+         return `${day}.${month}.${year} ${hours}:${minutes}`;
+};
+
+    console.log(reviews, '>>> Review line 29')
     return (
         <div className="user-profile-reviews-container">
             <h2 className="user-profile-reviews-title">REVIEWS</h2>
             <div className="user-profile-review-container">
-                <div className="user-profile-review-name-datetime">
-                    <ul className="user-profile-name-time">
-                        <li className="user-profile-review-name">Läderach Chocolatier Suisse
-                        </li>
-                        <li className="user-profile-review-time">01.01.2018 15:22
-                        </li>
-                    </ul>
-                    <div className="star-container">
-                        <div className="star-filled"><p dangerouslySetInnerHTML={{ __html: "&#9733; &#9733; &#9733; &#9733; &#9733;" }}></p></div>
-                        <div className="star-unfilled"><p dangerouslySetInnerHTML={{ __html: "&#9733; &#9733; &#9733; &#9733; &#9733;" }}></p></div>
-                    </div>
-                    <div className="user-profile-reviews-text">
-                        <p>This location at the Bahnhofstrasse is quite friendly and easily located across the street
-                            from the train station. The people there seem to be quite good and helpful in their
-                            service</p>
-                    </div>
+                {reviews?.map((review) => {
+                    return(
+                    <div className="user-profile-review-name-datetime">
+                        <ul className="user-profile-name-time">
+                            <li className="user-profile-review-name">{review.restaurant.name}
+                            </li>
+                            <li className="user-profile-review-time">{formatDate(review.restaurant.created)}
+                            </li>
+                        </ul>
+                        <div className="star-container">
+                            <div className="star-filled"><p
+                                dangerouslySetInnerHTML={{__html: "&#9733; &#9733; &#9733; &#9733; &#9733;"}}></p></div>
+                            <div className="star-unfilled"><p
+                                dangerouslySetInnerHTML={{__html: "&#9733; &#9733; &#9733; &#9733; &#9733;"}}></p></div>
+                        </div>
+                        <div className="user-profile-reviews-text">
+                            <p>{review.text_content}</p>
+                        </div>
 
-                </div>
+                    </div>)
+                })}
 
             </div>
         </div>

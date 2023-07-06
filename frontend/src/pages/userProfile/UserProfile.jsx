@@ -11,8 +11,7 @@ import UserProfileComments from "../../components/UserProfile/UserProfileComment
 
 const UserProfile = () => {
     const [user, setUser] = useState(null)
-
-    const [selectedMenuItem, setSelectedMenuItem] = useState("restaurants");
+    const [selectedMenuItem, setSelectedMenuItem] = useState("reviews");
 
     const handleMenuItemClick = (menu) => {
         setSelectedMenuItem(menu);
@@ -21,10 +20,9 @@ const UserProfile = () => {
     const fetchUserData = async () => {
             try {
                 const response = await axiosMotion.get('/users/1/');
-                console.log(response, 'line24')
+                console.log(response, '>>> User line23')
                 setUser(response.data);
-                console.log(response.data, 'line26')
-                console.log(response.data.first_name, 'line27')
+                console.log(response.data, '>>> User line26')
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
