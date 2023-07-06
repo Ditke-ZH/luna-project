@@ -32,26 +32,42 @@
   opacity: 0.9;
 }
 
+.review-page-bottom-content{
+    display: flex;
+    justify-content: center;
+    border: 2px fuchsia solid;
+    padding: 6rem;
+}
+
 .review-rating-container{
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
+  padding: 6rem;
   justify-content: center;
   border: 2px purple solid;
+  width: 80vw;
 }
 
-.select-your-rating{
+.rating-stars-select-container{
+    display: flex;
+    flex-direction: column;
+    border: 20px  black;
+}
+
+.select-your-stars{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /*justify-content: center;*/
   align-content: center;
   align-items: center;
+  width: 30rem;
   border: 2px solid green;
 }
 
 .review-input-container{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   border: 2px solid blue;
 }
 .save-edit-button-delete-container{
