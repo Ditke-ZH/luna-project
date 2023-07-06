@@ -6,6 +6,8 @@ import ResturantCard from "../../components/ResturantCard";
 import ImagePlaceHolder from "../../assets/images/resturnat-image-placeholder.jpg";
 import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import { useSelector } from "react-redux";
 import "./home.css";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -39,17 +41,19 @@ const dummyContent = [
 ];
 
 const Home = () => {
+  const userAllInformation = useSelector(state => state.user.setAllInformation);
   const navigate = useNavigate();
   const [serach, setSearch] = useState("");
-  const handelSearch = (e) => {
+  const handelSearch = e => {
     e.preventDefault();
   };
   const onClickHandler = () => {
-    navigate(`/restaurants/${props.restaurant.id}`);
+    navigate(`/restaurants/${""}`);
   };
-
+  console.log(userAllInformation);
+  // useEffect(() => {}, []);
   return (
-    <main>
+    <>
       <article className="home-hero-section">
         <Container>
           <form className="search-conatiner" onSubmit={handelSearch}>
@@ -58,7 +62,7 @@ const Home = () => {
               type="text"
               placeholder="Search..."
               value={serach}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
             />
             <Button>Search</Button>
           </form>
@@ -91,7 +95,7 @@ const Home = () => {
           </Swiper>
         </article>
       </Container>
-    </main>
+    </>
   );
 };
 
