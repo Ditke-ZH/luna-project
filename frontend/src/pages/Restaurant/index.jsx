@@ -67,7 +67,7 @@ export default function RestaurantPage() {
               })}
             </div>
           </div>
-          <RestaurantInformation />
+          <RestaurantInformation restaurantData={fetchData} />
         </div>
       </Container>
     </article>
