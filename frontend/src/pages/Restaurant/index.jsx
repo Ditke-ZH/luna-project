@@ -5,7 +5,6 @@ import LocationInformation from "../../components/LocationInformation/LocationIn
 import RestaurantReview from "../../components/RestaurantReview/RestaurantReview";
 import RestaurantInformation from "../../components/RestaurantInformation/RestaurantInformation";
 import { axiosLuna } from "../../axios/axiosInstance";
-// import Loader from "../../components/Loader/Loader";
 import Container from "../../components/container/Container";
 import StarRating from "../../components/StarRating/indx";
 
@@ -21,7 +20,7 @@ export default function RestaurantPage() {
       setFetchData(data);
     };
     getFetchData();
-  }, []);
+  }, [resturantId]);
   console.log(fetchData);
   const reviews = [fetchData?.restaurant_reviews];
 
@@ -35,7 +34,7 @@ export default function RestaurantPage() {
           <div className="restaurant-title-rating">
             <div>
               <h1>{fetchData.name}</h1>
-              {fetchData.categories?.map((item) => <p>{item}</p>) || (
+              {fetchData.categories?.map(item => <p>{item}</p>) || (
                 <p>Unknown</p>
               )}
               <StarRating
