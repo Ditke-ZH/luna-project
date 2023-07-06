@@ -17,10 +17,11 @@ def user_directory_path(instance, filename):
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
     country = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    zip = models.CharField(max_length=9, blank=True, null=True)
+    zip = models.CharField(max_length=9, blank=True, default='')
     website = models.URLField(max_length=200, blank=True, null=True)
     phone = models.CharField(max_length=15)
     email = models.EmailField(max_length=100, blank=True, null=True)

@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileReviews.css";
-import {axiosMotion} from "../../../axios/axiosInstance.js";
+import {axiosLuna} from "../../../axios/axiosInstance.js";
 
 
 const UserProfileReviews = () => {
     const [reviews, setReviews] = useState([])
     const fetchReviewData = async () => {
         try {
-            const response = await axiosMotion.get('/reviews/user/1/');
+            const response = await axiosLuna.get('/reviews/user/1/');
             console.log(response, 'line11 >>> Reviews')
             setReviews(response.data);
         } catch (error) {

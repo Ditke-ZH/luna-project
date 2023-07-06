@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileRestaurants.css";
 import Button from "../../Button/Button.jsx";
-import {axiosMotion} from "../../../axios/axiosInstance.js";
+import {axiosLuna} from "../../../axios/axiosInstance.js";
 
 
 const UserProfileRestaurants = () => {
     const [restaurants, setRestaurants] = useState([])
     const fetchRestaurantsData = async () => {
         try {
-            const response = await axiosMotion.get('/restaurants/user/1/');
+            const response = await axiosLuna.get('/restaurants/user/1/');
             console.log(response, '>>> Restaurant line11')
             setRestaurants(response.data);
             console.log(response.data, '>>> Restaurant line13')

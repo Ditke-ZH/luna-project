@@ -1,58 +1,75 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./restaurant.css";
-import RestaurantHeader from "../../components/RestaurantHeader/RestaurantHeader";
-import LocationInformation from "../../Components/LocationInformation/LocationInformation";
-import RestaurantReview from "../../Components/RestaurantReviewWide/RestaurantReview";
-import RestaurantInformation from "../../Components/RestaurantInformation/RestaurantInformation";
+import LocationInformation from "../../components/LocationInformation/LocationInformation";
+import RestaurantReview from "../../components/RestaurantReview/RestaurantReview";
+import RestaurantInformation from "../../components/RestaurantInformation/RestaurantInformation";
+import { axiosLuna } from "../../axios/axiosInstance";
+// import Loader from "../../components/Loader/Loader";
+import Container from "../../components/container/Container";
+import StarRating from "../../components/StarRating/indx";
 
 export default function RestaurantPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const { resturantId } = useParams();
+
   const [fetchData, setFetchData] = useState([]);
-  const getFetchData = async (link) => {
-    const { data } = await axios.get(link);
 
-    setFetchData(data);
-  };
   useEffect(() => {
-    if (navigate.location.pathname.startsWith(`/restaurants/${id}`))
-      getFetchData(
-        `https://luna3.propulsion-learn.ch/backend/api/restaurants/${id}/`
-      );
+    const getFetchData = async () => {
+      const res = await axiosLuna.get(`/restaurants/${resturantId}`);
+      const data = res?.data;
+      setFetchData(data);
+    };
+    getFetchData();
   }, []);
-
-  const reviews = [fetchData.restaurant_reviews];
+  console.log(fetchData);
+  const reviews = [fetchData?.restaurant_reviews];
 
   return (
-    <div className="RestaurantPageDiv">
-      <div className="Header-div">
-        <RestaurantHeader />
-        <LocationInformation />
+    <article className="RestaurantPageDiv">
+      <div
+        className="Header-div"
+        style={{ backgroundImage: `url(${fetchData.image})` }}
+      >
+        <Container>
+          <div className="restaurant-title-rating">
+            <div>
+              <h1>{fetchData.name}</h1>
+              {fetchData.categories?.map((item) => <p>{item}</p>) || (
+                <p>Unknown</p>
+              )}
+              <StarRating
+                StarRating={fetchData.rating_average}
+                totalRatingNumber={fetchData.review_count}
+                ExtraClasses="resturant-stars"
+              />
+            </div>
+            <LocationInformation restaurantData={fetchData} />
+          </div>
+        </Container>
       </div>
-
-      <div className="Bottom-div">
-        <div className="left">
-          <div className="Filter-div">
-            <input
-              type="search"
-              placeholder="Filter list..."
-              className="FilterBar"
-            />
-            <button href="#" className="FilterButton">
-              FILTER
-            </button>
+      <Container>
+        <div className="Bottom-div">
+          <div className="left">
+            <div className="Filter-div">
+              <input
+                type="search"
+                placeholder="Filter list..."
+                className="FilterBar"
+              />
+              <button href="#" className="FilterButton">
+                FILTER
+              </button>
+            </div>
+            <div className="cardContainer">
+              {reviews.map((value, index) => {
+                return <RestaurantReview key={index} />;
+              })}
+            </div>
           </div>
-          <div className="cardContainer">
-            {reviews.map((value, index) => {
-              return RestaurantReview(value);
-            })}
-          </div>
+          <RestaurantInformation />
         </div>
-        <RestaurantInformation />
-      </div>
-    </div>
+      </Container>
+    </article>
   );
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileEdit.css";
 import Button from "../../Button/Button.jsx";
-import {axiosMotion} from "../../../axios/axiosInstance.js";
+import {axiosLuna} from "../../../axios/axiosInstance.js";
 
 const UserProfileEdit = () => {
     return (

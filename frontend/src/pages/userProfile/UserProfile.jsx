@@ -1,4 +1,4 @@
-import {axiosMotion} from "../../axios/axiosInstance.js";
+import {axiosLuna} from "../../axios/axiosInstance.js";
 import {useEffect, useState} from "react";
 import "./userProfile.css";
 import zurichSkyline from '../../assets/images/zuerich-skyline.jpg'
@@ -19,7 +19,7 @@ const UserProfile = () => {
 
     const fetchUserData = async () => {
             try {
-                const response = await axiosMotion.get('/users/1/');
+                const response = await axiosLuna.get('/users/1/');
                 console.log(response, '>>> User line23')
                 setUser(response.data);
                 console.log(response.data, '>>> User line26')
@@ -91,4 +91,4 @@ const UserProfile = () => {
     )
 }
 
-export default UserProfile
+export default UserProfile;

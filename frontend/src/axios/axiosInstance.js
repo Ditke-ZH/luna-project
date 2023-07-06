@@ -3,12 +3,15 @@ import axios from "axios";
 const baseUrl = import.meta.env.VITE_API_BASEURL;
 const token = localStorage.getItem("accessToken");
 
-console.log(baseUrl)
-
-export const axiosMotion = axios.create({
+const  instance = axios.create({
   baseURL: baseUrl,
-  headers: {
-    // Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  },
 });
+
+if (token) {
+  instance['headers'] = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  }
+}
+
+export const axiosLuna = instance;

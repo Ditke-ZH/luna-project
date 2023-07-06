@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileComments.css";
-import {axiosMotion} from "../../../axios/axiosInstance.js";
+import {axiosLuna} from "../../../axios/axiosInstance.js";
 
 
 const UserProfileComments = () => {
     const [comments, setComments] = useState([])
     const fetchCommentsData = async () => {
         try {
-            const response = await axiosMotion.get('/review/comment/1/');
+            const response = await axiosLuna.get('/review/comment/1/');
             console.log(response, '>>> Comments line11')
             setComments(response.data);
             console.log(response.data, '>>> Comments line13')

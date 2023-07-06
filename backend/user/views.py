@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework import generics
 from rest_framework.response import Response
 
 from email_scheduler.models import EmailScheduler
@@ -12,6 +12,16 @@ User = get_user_model()
 
 
 class RetrieveUpdateDeleteUserView(RetrieveUpdateDestroyAPIView):
+    """
+        get:
+        Get the logged-in user profile
+
+        patch:
+        Update the logged-in user profile
+
+        delete:
+        Delete the logged-in user profile
+    """
     serializer_class = UserSerializer
     lookup_field = None
 
@@ -35,6 +45,12 @@ class RetrieveUpdateDeleteUserView(RetrieveUpdateDestroyAPIView):
         mail_instance.create(subject=subject, message=message, recipient_list=self.request.user.email)
 
         return Response(serializer.data)
+
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_active = False
+        instance.save()
+        return Response(status=status.HTTP_200_OK)
 
     @swagger_auto_schema(auto_schema=None)
     def put(self, request, *args, **kwargs):
@@ -60,24 +76,11 @@ class RetrieveUsersList(ListAPIView):
         return queryset
 
 
-class FilteringUsersList(generics.ListAPIView):
-    serializer_class = UserSerializer
-
-    def get_queryset(self):
-        queryset = User.objects.all()
-        first_name = self.request.query_params.get('first_name')
-        last_name = self.request.query_params.get('last_name')
-        if first_name or last_name:
-            filter_kwargs = {}
-            if first_name:
-                filter_kwargs['first_name__icontains'] = first_name
-            if last_name:
-                filter_kwargs['last_name__icontains'] = last_name
-            queryset = queryset.filter(**filter_kwargs)
-        return queryset
-
-
 class RetrieveUserByIDView(RetrieveAPIView):
+    """
+        get:
+        get a specific user profile
+    """
     serializer_class = UserSerializer
     queryset = User.objects.all()
     lookup_url_kwarg = 'user_id'
