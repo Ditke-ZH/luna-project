@@ -4,7 +4,7 @@ import { axiosLuna } from "../../axios/axiosInstance";
 import "./signin.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/slices/user";
+import { login, setEmail as emailAction } from "../../store/slices/user";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -27,6 +27,7 @@ const SignIn = () => {
             localStorage.setItem("accessToken", JSON.stringify(accessToken));
             setErrorMessage(null);
             dispatch(login(accessToken));
+            dispatch(emailAction({ emai: email }));
             navigate("/", { replace: true });
           }
         })

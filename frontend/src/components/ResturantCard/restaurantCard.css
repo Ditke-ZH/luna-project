@@ -31,6 +31,8 @@
 }
 .restaurant-card-image {
   width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
 }
 .starsMargin {
   margin-bottom: 1.2rem;
