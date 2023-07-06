@@ -9,8 +9,9 @@ import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/signUp/Signup";
 import SignIn from "./pages/login/SignIn";
-import "./global.css";
 import UserProfile from "./pages/userProfile/UserProfile.jsx";
+import RestaurantPage from "./pages/Restaurant";
+import "./global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -26,6 +27,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               path="search/users/:userId"
               element={<UserProfile />}
               //loader={userProfileLoader}
+            />
+            <Route
+              path="search/restaurants/:resturantId"
+              element={<RestaurantPage />}
             />
           </Route>
           <Route path="*" element={<NotFound />} />
