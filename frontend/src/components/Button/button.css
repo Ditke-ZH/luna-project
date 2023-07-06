@@ -13,4 +13,5 @@
 }
 .luna-button:hover {
   background: var(--orange-luna-hover);
+  cursor: pointer;
 }
