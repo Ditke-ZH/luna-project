@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 
@@ -44,6 +45,13 @@ class RetrieveUpdateDeleteUserView(RetrieveUpdateDestroyAPIView):
         mail_instance.create(subject=subject, message=message, recipient_list=self.request.user.email)
 
         return Response(serializer.data)
+
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_active = False
+        instance.save()
+        return Response(status=status.HTTP_200_OK)
+
 
     @swagger_auto_schema(auto_schema=None)
     def put(self, request, *args, **kwargs):

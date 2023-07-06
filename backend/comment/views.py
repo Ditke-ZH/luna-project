@@ -1,4 +1,4 @@
-from rest_framework.generics import RetrieveAPIView, DestroyAPIView, CreateAPIView
+from rest_framework.generics import DestroyAPIView, CreateAPIView, ListAPIView
 from rest_framework.response import Response
 
 from comment.models import Comment
@@ -37,14 +37,16 @@ class CreateCommentView(CreateAPIView):
         return Response(serializer.data)
 
 
-class GetUserCommentsView(RetrieveAPIView):
+class GetUserCommentsView(ListAPIView):
     """
         get:
         Get all the comments from a single user by user_id
     """
     serializer_class = CommentSerializer
-    queryset = Comment.objects.all().order_by('-date_created')
-    lookup_field = 'user_id'
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        return Comment.objects.filter(user_id=user_id).order_by('-date_created')
 
 
 class DeleteCommentView(DestroyAPIView):
