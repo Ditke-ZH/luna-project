@@ -1,4 +1,4 @@
-.resturant-card-container {
+.restaurant-card-container {
   width: 17rem;
   max-width: 100%;
   padding: 1.1rem 0.8rem;
@@ -6,7 +6,7 @@
   border: 1px solid var(--grey-luna);
   position: relative;
 }
-.resturant-card-container::before {
+.restaurant-card-container::before {
   content: "";
   position: absolute;
   top: 0;
@@ -21,15 +21,15 @@
   -ms-transform: translate(-50%);
   -o-transform: translate(-50%);
 }
-.resturantCardTitle {
+.restaurantCardTitle {
   font-size: 1.2rem;
   margin-bottom: 0.3rem;
   max-width: 100%;
 }
-.resturantCardAddress {
+.restaurantCardAddress {
   margin-bottom: 0.6rem;
 }
-.resturant-card-image {
+.restaurant-card-image {
   width: 100%;
 }
 .starsMargin {

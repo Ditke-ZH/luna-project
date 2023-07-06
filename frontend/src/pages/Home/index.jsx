@@ -17,14 +17,13 @@ import {axiosLuna} from "../../axios/axiosInstance.js";
 const Home = () => {
   const userAllInformation = useSelector(state => state.user.setAllInformation);
   const navigate = useNavigate();
-  const [serach, setSearch] = useState("");
+  const [searchString, setSearchString] = useState("");
   const [favRestaurants, setFavRestaurants] = useState([])
 
   useEffect(() => {
     const getFetchData = async () => {
       const res = await axiosLuna.get(`/home`);
       const data = res?.data;
-      console.log(data)
       setFavRestaurants(data);
     };
     getFetchData();
@@ -32,12 +31,9 @@ const Home = () => {
 
   const handelSearch = e => {
     e.preventDefault();
+    navigate(`/search/??type=restaurants&search_string=${searchString}`)
   };
-  const onClickHandler = () => {
-    navigate(`/restaurants/${""}`);
-  };
-  console.log(userAllInformation);
-  // useEffect(() => {}, []);
+
   return (
     <>
       <article className="home-hero-section">
@@ -47,8 +43,8 @@ const Home = () => {
               className="search-input"
               type="text"
               placeholder="Search..."
-              value={serach}
-              onChange={e => setSearch(e.target.value)}
+              value={searchString}
+              onChange={e => setSearchString(e.target.value)}
             />
             <Button>Search</Button>
           </form>
@@ -69,12 +65,12 @@ const Home = () => {
             {favRestaurants.map((item, idx) => (
               <SwiperSlide key={idx} style={{ width: "fit-content" }}>
                 <ResturantCard
-                  onClick={onClickHandler}
                   title={item.name}
                   address={item.street}
                   totalRatingNumber={item.review_count}
                   StarsNumber={item.rating_average}
                   image={item.image ? item.image : ImagePlaceHolder}
+                  id={item.id}
                 />
               </SwiperSlide>
             ))}
