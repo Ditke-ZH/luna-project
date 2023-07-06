@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileReviews.css";
 import {axiosLuna} from "../../../axios/axiosInstance.js";
+import StarRating from "../../StarRating/indx.jsx";
 
 
 const UserProfileReviews = () => {
@@ -44,10 +45,7 @@ const UserProfileReviews = () => {
                             </li>
                         </ul>
                         <div className="star-container">
-                            <div className="star-filled"><p
-                                dangerouslySetInnerHTML={{__html: "&#9733; &#9733; &#9733; &#9733; &#9733;"}}></p></div>
-                            <div className="star-unfilled"><p
-                                dangerouslySetInnerHTML={{__html: "&#9733; &#9733; &#9733; &#9733; &#9733;"}}></p></div>
+                            <StarRating />
                         </div>
                         <div className="user-profile-reviews-text">
                             <p>{review.text_content}</p>

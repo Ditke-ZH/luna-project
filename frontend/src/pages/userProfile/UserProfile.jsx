@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import "./userProfile.css";
 import zurichSkyline from '../../assets/images/zuerich-skyline.jpg'
 import profilePicture from '../../assets/images/profile-picture.png'
+import userPicture from '../../assets/images/profile-picture.png';
 import UserProfileMenu from "../../components/UserProfile/UserProfileMenu/UserProfileMenu.jsx";
 import UserProfileRestaurants from "../../components/UserProfile/UserProfileRestaurants/UserProfileRestaurants.jsx";
 import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserProfileEdit.jsx";
@@ -23,6 +24,7 @@ const UserProfile = () => {
                 console.log(response, '>>> User line23')
                 setUser(response.data);
                 console.log(response.data, '>>> User line26')
+                console.log(response.data.profile_picture, '>>> User line27')
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -48,7 +50,8 @@ const UserProfile = () => {
                 <div className="user-main-body-container">
                     <div className="user-img-menu-container">
                         <div className="user-image-container">
-                            <img className="user-image" src={profilePicture} alt="user-profile-picture"/>
+                            {/*<img className="user-image" src={user && user.profile_picture ? user.profile_picture : profilePicture} alt="user-profile-picture"/>*/}
+                             <img className="user-image" src='http://localhost:8000/media-files/avataaars_1.png' alt="user-profile-picture"/>
                             <UserProfileMenu onItemClick={handleMenuItemClick}/>
                         </div>
                     </div>

@@ -37,8 +37,8 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 3%;
-    /*border: 2px solid pink;*/
 }
+
 
 .user-profile-review-time{
     /*border: 2px solid darkred;*/
@@ -51,28 +51,6 @@
     font-weight: lighter;
 }
 
-/* review star styling */
-.star-container {
-  display: inline-block;
-    margin-bottom: 3%;
-  border: 2px solid pink;
-  font-size: 0; /* Remove white space between div elements */
-
-}
-
-
-.star-filled,
-.star-unfilled {
-  display: inline-block;
-  width: 20px; /* Adjust the size of the stars as desired */
-  height: 20px; /* Adjust the size of the stars as desired */
-  background-image: url('../../assets/icons/star.svg'); /* Path to the image for filled star */
-  background-size: cover; /* Adjust as needed */
-}
-
-.star-unfilled {
-  background-image: url('../../assets/icons/star.svg'); /* Path to the image for unfilled star */
-}
 
 .create-restaurants-button{
     margin-top: 4%;

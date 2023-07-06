@@ -63,7 +63,6 @@
 .star-container {
   display: inline-block;
     margin-bottom: 3%;
-  border: 2px solid pink;
   font-size: 0; /* Remove white space between div elements */
 
 }

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./UserProfileRestaurants.css";
 import Button from "../../Button/Button.jsx";
 import {axiosLuna} from "../../../axios/axiosInstance.js";
+import StarRating from "../../StarRating/indx.jsx";
 
 
 const UserProfileRestaurants = () => {
@@ -32,10 +33,7 @@ const UserProfileRestaurants = () => {
                         <li className="user-profile-restaurants-name">{restaurant.name}</li>
                     </ul>
                     <div className="star-container">
-                        <div className="star-filled"><p
-                            dangerouslySetInnerHTML={{__html: "&#9733; &#9733; &#9733; &#9733; &#9733;"}}></p></div>
-                        <div className="star-unfilled"><p
-                            dangerouslySetInnerHTML={{__html: "&#9733; &#9733; &#9733; &#9733; &#9733;"}}></p></div>
+                        <StarRating />
                     </div>
                     <div className="user-profile-restaurants-text">
                         <p>{restaurant.description}</p>
