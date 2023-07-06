@@ -13,7 +13,7 @@ const ResturantCard = ({
     const navigate = useNavigate();
 
     const onClickHandler = () => {
-    navigate(`/restaurants/${id}`);
+    navigate(`/search/restaurants/${id}`);
   };
 
   return (
