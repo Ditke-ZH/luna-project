@@ -9,7 +9,7 @@ import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/signUp/Signup";
 import SignIn from "./pages/login/SignIn";
-import NewReview from "./pages/newReview/NewReview.jsx";
+import NewReview from "./pages/newReview";
 import UserProfile from "./pages/userProfile/UserProfile.jsx";
 import RestaurantPage from "./pages/Restaurant";
 import "./global.css";

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { RiStarSFill } from "react-icons/ri";
 import "./startRating.css";
 
-const StarRating = ({ StarRating, totalRatingNumber, ExtraClasses, Input = false }) => {
-  const [ratingSet, setRating] = useState();
+const StarRating = ({ StarRating, totalRatingNumber, ExtraClasses, Input = false, PassRating }) => {
+  const [rating, setRating] = useState(StarRating);
 
   return (
     <div className={`starRating-container ${ExtraClasses}`}>
@@ -16,7 +16,8 @@ const StarRating = ({ StarRating, totalRatingNumber, ExtraClasses, Input = false
                 type="radio"
                 name="rating"
                 className=" startInput"
-                value={ratingSet === 0 ? 5 : ratingValue}
+                value={rating === 0 ? 5 : ratingValue}
+                onClick={() => Input ? PassRating(ratingValue): null}
               />
               <RiStarSFill
                 className="starSize"

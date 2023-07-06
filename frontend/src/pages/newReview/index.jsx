@@ -1,15 +1,19 @@
 import React, {useEffect, useState} from "react";
 import "./NewReview.css";
-import reviewHeader from "../../assets/images/DSC_0213.png";
 import StarRating from "../../components/StarRating";
 import Button from "../../components/Button/Button.jsx";
-import { useParams } from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import {axiosLuna} from "../../axios/axiosInstance.js";
 
 const NewReview = () => {
 
     const [restaurant, setRestaurant] = useState({});
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState('')
+    const [ratingMissing, setRatingMissing] = useState(false)
+    const [reviewMissing, setReviewMissing] = useState(false)
 
+    const navigate = useNavigate()
     const { restaurantId } = useParams()
     const InputPlaceholder = "Your review helps others learn about great local businesses. " +
         "Please don't review this business if you received a freebie for writing this review, " +
@@ -17,8 +21,9 @@ const NewReview = () => {
 
     useEffect(() => {
         const fetchRestaurantData = async () => {
+            const data = {}  // todo: put in data...
             try {
-                const response = await axiosLuna.get(`/restaurants/${restaurantId}`);
+                const response = await axiosLuna.get(`/restaurants/${restaurantId}`, data);
                 console.log(response.data)
                 setRestaurant(response.data);
             } catch (error) {
@@ -28,6 +33,29 @@ const NewReview = () => {
 
         fetchRestaurantData();
     }, [restaurantId]);
+
+    const sendReview = async () => {
+        try {
+            const response = await axiosLuna.post(`/reviews/new/${restaurantId}`);
+            console.log(response.data)
+            navigate(`/search/restaurants/${restaurantId}`)
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setReview(review.trim)
+        if (review === '') setReviewMissing(true)
+        else setReviewMissing(false)
+
+        if (rating === 0) setRatingMissing(true)
+        else setRatingMissing(false)
+
+        if (!reviewMissing && ! ratingMissing) sendReview();
+    }
 
     return (
         <>
@@ -42,17 +70,21 @@ const NewReview = () => {
                     <div className="review-rating-container">
                         <div className="rating-stars-select-container">
                             <div className="select-your-stars">
-                            <StarRating input={true}/>
+                            <StarRating StarRating={rating} PassRating={setRating} Input={true}/>
                             <p className="select-rating">Select your rating:</p>
                         </div>
                         <div className="review-input-container">
-                            <input className="review-user-input-text" placeholder={InputPlaceholder} type="text"/>
+                            <input className="review-user-input-text"
+                                   value={review}
+                                   onChange={e => setReview(e.target.value)}
+                                   placeholder={InputPlaceholder}
+                                   type="text"/>
                         </div>
 
                         <div className="review-save-edit-button-delete-container">
                             <ul className="review-save-edit-button-delete-list">
-                                <li className="review-delete-account">This Field is required</li>
-                                <li className="review-save-edit"><Button>Submit</Button></li>
+                                {reviewMissing ? <li className="review-delete-account">This Field is required</li> : null }
+                                <li className="review-save-edit"><Button onClickFunction={handleSubmit} >Submit</Button></li>
 
 
                             </ul>
