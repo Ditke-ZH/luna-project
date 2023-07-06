@@ -1,5 +1,6 @@
-import "./resturantCard.css";
+import "./restaurantCard.css";
 import StarRating from "../StarRating/indx";
+import {useNavigate} from "react-router-dom";
 
 const ResturantCard = ({
   title,
@@ -7,17 +8,24 @@ const ResturantCard = ({
   totalRatingNumber,
   StarsNumber,
   image,
+  id
 }) => {
+    const navigate = useNavigate();
+
+    const onClickHandler = () => {
+    navigate(`/search/restaurants/${id}`);
+  };
+
   return (
-    <div className="resturant-card-container">
-      <h4 className="resturantCardTitle">{title}</h4>
-      <p className="resturantCardAddress">{address}</p>
+    <div className="restaurant-card-container" onClick={onClickHandler}>
+      <h4 className="restaurantCardTitle" >{title}</h4>
+      <p className="restaurantCardAddress" >{address}</p>
       <StarRating
         StarRating={StarsNumber}
         totalRatingNumber={totalRatingNumber}
         ExtraClasses={"starsMargin"}
       />
-      <img src={image} alt={title} className="resturant-card-image" />
+      <img src={image} alt={title} className="restaurant-card-image" />
     </div>
   );
 };
