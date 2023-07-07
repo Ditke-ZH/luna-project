@@ -52,25 +52,13 @@ const Home = () => {
       try {
         const res = await axiosLuna.get("/users/");
         console.log(res.data);
-        const loggedUser = res.data?.find(
-          item => item.email === userLoggedInEmail
-        );
-        console.log(loggedUser, "loggeduser Email");
+        const loggedUser = res.data?.find(item => {
+          return item.email === userLoggedInEmail;
+        });
+        console.log(loggedUser);
+        console.log(userLoggedInEmail);
         if (loggedUser) {
-          console.log(loggedUser, "loggeduser Email");
-          dispatch(
-            setAllInformation({
-              firstName: loggedUser.first_name,
-              lastName: loggedUser.last_name,
-              username: loggedUser.username,
-              avatar: loggedUser.profile_picture,
-              banner: "",
-              location: loggedUser.location,
-              about: "",
-              phone: loggedUser.user_phone,
-              email: loggedUser.email,
-            })
-          );
+          dispatch(setAllInformation(loggedUser));
         }
       } catch (err) {
         console.log(err.message);
