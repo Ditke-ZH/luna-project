@@ -77,7 +77,7 @@ const UserProfile = () => {
                 }
                 alt="user-profile-picture"
               />
-              <UserProfileMenu onItemClick={handleMenuItemClick} />
+              <UserProfileMenu onItemClick={handleMenuItemClick} user={user} />
             </div>
           </div>
           <div className="user-info-reviews">
