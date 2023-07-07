@@ -77,7 +77,8 @@ const Layout = () => {
           console.log(loggedUser, "loggeduser Email");
           dispatch(
             setAllInformation({
-              firstName: loggedUser.first_name,
+              id: loggedUser.id,
+                firstName: loggedUser.first_name,
               lastName: loggedUser.last_name,
               username: loggedUser.username,
               avatar: loggedUser.profile_picture,

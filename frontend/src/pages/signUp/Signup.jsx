@@ -59,7 +59,7 @@ const Signup = () => {
         if (req.status === 200) {
           dispatch(
             setAllInformation(...userAllInformation, {
-              username: username,
+                username: username,
               email: emaiVerification,
             })
           );

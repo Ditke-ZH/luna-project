@@ -8,36 +8,44 @@ import UserProfileRestaurants from "../../components/UserProfile/UserProfileRest
 import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserProfileEdit.jsx";
 import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
 import UserProfileComments from "../../components/UserProfile/UserProfileComments/UserProfileComments.jsx";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom"
+import {useSelector} from "react-redux";
 
 const UserProfile = () => {
-  const [user, setUser] = useState(null);
-  const [selectedMenuItem, setSelectedMenuItem] = useState("reviews");
-  const location = useLocation();
-  const { userId } = useParams();
+    const [user, setUser] = useState(null)
+    const [selectedMenuItem, setSelectedMenuItem] = useState("reviews");
+    const location = useLocation()
+    const access_token = useSelector((state) => state.user.accessToken);
 
-  const handleMenuItemClick = menu => {
-    setSelectedMenuItem(menu);
-  };
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      let url = "/users/";
-      if (location.pathname === "/profile") {
-        url += "me/";
-      } else {
-        url += userId + "/";
-      }
-      try {
-        const response = await axiosLuna.get(url);
-        console.log(response, ">>> User line23");
-        setUser(response.data);
-        console.log(response.data, ">>> User line26");
-        console.log(response.data.profile_picture, ">>> User line27");
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
+    const { userId } = useParams()
+    const handleMenuItemClick = (menu) => {
+        setSelectedMenuItem(menu);
     };
+    useEffect(() => {
+        const fetchUserData = async () => {
+            let url = '/users/'
+            if (location.pathname === "/profile") {
+                url += 'me/'
+            } else {
+                url += userId + '/'
+            }
+
+      let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
+            try {
+                const response = await axiosLuna.get(url, config);
+                console.log(response, '>>> User line23')
+                setUser(response.data);
+                console.log(response.data, '>>> User line26')
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
 
     fetchUserData();
   }, [location.pathname, userId]);

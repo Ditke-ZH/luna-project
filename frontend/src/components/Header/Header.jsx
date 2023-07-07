@@ -4,22 +4,30 @@ import { NavLink, useNavigate, Link } from "react-router-dom";
 import "./header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/user.js";
+import {useEffect, useState} from "react";
 
-const MenuItems = [
-  { name: "Home", link: "/" },
-  { name: "Search", link: "/search" },
-  { name: "Profile", link: "/profile" },
-];
+
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userIsLoged = useSelector(state => state?.user.email);
+  const access_token = useSelector((state) => state.user.accessToken);
+  const [MenuItems, SetMenuItems] = useState([])
+
+  useEffect(() =>{
+     SetMenuItems([
+      { name: "Home", link: "/" },
+      { name: "Search", link: "/search" },
+      { name: "Profile", link: access_token ? "/profile" : "/login" },
+      ]);
+  }, [access_token])
 
   const handleLogout = e => {
     e.preventDefault();
     dispatch(logout());
-  };
+    localStorage.removeItem("refreshToken");
+    navigate('/')
+  }
 
   return (
     <header className="headerContainer">
@@ -34,30 +42,29 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        <div className="header-buttons-container">
-          {!userIsLoged && (
+        { access_token ?
             <button
+              className="logout-button"
+              onClick={handleLogout}
+            >logout</button>
+          : <div className="header-buttons-container">
+          <button
               className="header-button-left"
               onClick={() => {
                 navigate("/signup");
               }}
-            >
-              signup
-            </button>
-          )}
+          >
+            signup
+          </button>
           <button
             className="header-button-right"
-            onClick={() => {
-              if (userIsLoged) {
-                handleLogout();
-              } else {
+              onClick={() => {
                 navigate("/login");
-              }
-            }}
+              }}
           >
-            {userIsLoged ? "logout" : "login"}
+            login
           </button>
-        </div>
+        </div>}
       </nav>
     </header>
   );
