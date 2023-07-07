@@ -22,7 +22,7 @@ const NewReview = () => {
     useEffect(() => {
         const fetchRestaurantData = async () => {
             try {
-                const response = await axiosLuna.get(`/restaurants/${restaurantId}`);
+                const response = await axiosLuna.get(`/restaurants/${restaurantId}/`);
                 console.log(response.data)
                 setRestaurant(response.data);
             } catch (error) {
@@ -50,7 +50,7 @@ const NewReview = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setReview(review.trim)
+        setReview(review.trim())
         if (review === '') setReviewMissing(true)
         else setReviewMissing(false)
 
