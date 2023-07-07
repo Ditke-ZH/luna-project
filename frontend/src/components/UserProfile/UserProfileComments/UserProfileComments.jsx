@@ -4,7 +4,7 @@ import {axiosLuna} from "../../../axios/axiosInstance.js";
 import {useSelector} from "react-redux";
 
 
-export const UserProfileComments = () => {
+const UserProfileComments = () => {
     const [comments, setComments] = useState([])
     const access_token = useSelector((state) => state.user.accessToken);
 
@@ -61,3 +61,5 @@ export const UserProfileComments = () => {
         </div>
     );
 };
+
+export default UserProfileComments
