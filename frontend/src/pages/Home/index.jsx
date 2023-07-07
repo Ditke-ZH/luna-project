@@ -20,16 +20,6 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchString, setSearchString] = useState("");
-  //const [favRestaurants, setFavRestaurants] = useState([]);
-
-  /*  useEffect(() => {
-    const getFetchData = async () => {
-      const res = await axiosLuna.get(`/home`);
-      const data = res?.data;
-      setFavRestaurants(data);
-    };
-    getFetchData();
-  }, []); */
 
   const handelSearch = e => {
     e.preventDefault();
@@ -42,7 +32,7 @@ const Home = () => {
 
   useEffect(() => {
     axiosLuna
-      .get("/restaurants/")
+      .get("/home/")
       .then(res => setRestaurantsData(res.data))
       .catch(err => console.log(err.message));
   }, []);
