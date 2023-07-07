@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileEdit.css";
 import Button from "../../Button/Button.jsx";
-import {axiosLuna} from "../../../axios/axiosInstance.js";
 
-const UserProfileEdit = () => {
+export const UserProfileEdit = () => {
     return (
         <div className="user-profile-edit-container">
             <h2 className="user-profile-edit-title">EDIT USER PROFILE</h2>
@@ -53,5 +52,3 @@ const UserProfileEdit = () => {
         </div>
     );
 };
-
-export default UserProfileEdit

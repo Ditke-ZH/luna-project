@@ -6,7 +6,7 @@ import restaurantSvg from '../../../assets/icons/restaurant.svg'
 import ReviewSvg from '../../../assets/icons/star.svg'
 import {useSelector} from "react-redux";
 
-const UserProfileMenu = ({ onItemClick, user }) => {
+export const UserProfileMenu = ({ onItemClick, user }) => {
     const loggedInUserID = useSelector((state) => state.user.id)
     return (
     <div className="user-profile-menu-container">
@@ -28,5 +28,3 @@ const UserProfileMenu = ({ onItemClick, user }) => {
     </div>
   );
 };
-
-export default UserProfileMenu
