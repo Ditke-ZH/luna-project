@@ -146,8 +146,11 @@ class GeneralSearchListView(ListAPIView):
                 queryset = queryset.filter(restaurant__categories__name=search_category)
             return queryset
 
-        if search_type == 'users' and search_string is not None:
-            return User.objects.filter(Q(username__icontains=search_string) |
-                                       Q(first_name__icontains=search_string) |
-                                       Q(last_name__icontains=search_string))
+        if search_type == 'users':
+            queryset = User.objects.all()
+            if search_string is not None:
+                queryset = queryset.filter(Q(username__icontains=search_string) |
+                                           Q(first_name__icontains=search_string) |
+                                           Q(last_name__icontains=search_string))
+            return queryset
         return
