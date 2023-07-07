@@ -8,19 +8,19 @@ import UserProfileRestaurants from "../../components/UserProfile/UserProfileRest
 import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserProfileEdit.jsx";
 import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
 import UserProfileComments from "../../components/UserProfile/UserProfileComments/UserProfileComments.jsx";
-import {useLocation, useParams} from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
+import {useSelector} from "react-redux";
 
 const UserProfile = () => {
     const [user, setUser] = useState(null)
     const [selectedMenuItem, setSelectedMenuItem] = useState("reviews");
     const location = useLocation()
+    const access_token = useSelector((state) => state.user.accessToken);
     const {userId} = useParams()
 
     const handleMenuItemClick = (menu) => {
         setSelectedMenuItem(menu);
     };
-
-
     useEffect(() => {
         const fetchUserData = async () => {
             let url = '/users/'
@@ -29,8 +29,16 @@ const UserProfile = () => {
             } else {
                 url += userId + '/'
             }
+
+      let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
             try {
-                const response = await axiosLuna.get(url);
+                const response = await axiosLuna.get(url, config);
                 console.log(response, '>>> User line23')
                 setUser(response.data);
                 console.log(response.data, '>>> User line26')
@@ -99,6 +107,7 @@ const UserProfile = () => {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
