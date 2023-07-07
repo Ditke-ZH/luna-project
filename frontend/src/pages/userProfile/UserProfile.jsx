@@ -9,16 +9,12 @@ import UserProfileEdit from "../../components/UserProfile/UserProfileEdit/UserPr
 import UserProfileReviews from "../../components/UserProfile/UserProfileReviews/UserProfileReviews.jsx";
 import UserProfileComments from "../../components/UserProfile/UserProfileComments/UserProfileComments.jsx";
 import { useLocation, useParams } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector.js";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [selectedMenuItem, setSelectedMenuItem] = useState("reviews");
   const location = useLocation();
   const { userId } = useParams();
-  const loggedUserData = useSelector(state => state?.user);
-
-  console.log(loggedUserData, "Store loged user");
 
   const handleMenuItemClick = menu => {
     setSelectedMenuItem(menu);
