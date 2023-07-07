@@ -5,22 +5,22 @@ import like from "../../assets/icons/like.svg";
 import "./RestaurantReview.css";
 import { axiosLuna } from "../../axios/axiosInstance";
 import StarRating from "../StarRating";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function RestaurantReview({ restaurantData }) {
   const { resturantId } = useParams();
   const [fetchData, setFetchData] = useState([]);
-    const access_token = useSelector((state) => state.user.accessToken);
+  const access_token = useSelector((state) => state.user.accessToken);
 
   useEffect(() => {
     const getFetchData = async () => {
-      let config = null
-        if (access_token) {
-            config = {
-                headers: { Authorization: `Bearer ${access_token}`},
-                "Content-Type": "application/json",
-            };
-        }
+      let config = null;
+      if (access_token) {
+        config = {
+          headers: { Authorization: `Bearer ${access_token}` },
+          "Content-Type": "application/json",
+        };
+      }
 
       const res = await axiosLuna.get(`/restaurants/${resturantId}`, config);
       const data = res?.data;
@@ -29,7 +29,7 @@ export default function RestaurantReview({ restaurantData }) {
     getFetchData();
   }, [resturantId]);
   console.log(fetchData);
-  const reviews = [fetchData?.restaurant_reviews];
+  //const reviews = [fetchData?.restaurant_reviews];
 
   return (
     <div className="ReviewCardContainer">
@@ -38,7 +38,7 @@ export default function RestaurantReview({ restaurantData }) {
         <div className="LeftContainer">
           <h5 className="reviewerName">Username</h5>
           <span className="reviewCount">
-            {restaurantData.review_count}6 Reviews in Total
+            {restaurantData.review_count} Reviews in Total
           </span>
         </div>
         <div className="rating">
