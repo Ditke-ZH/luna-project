@@ -4,7 +4,7 @@ import Container from "../../components/container/Container";
 import { axiosLuna } from "../../axios/axiosInstance";
 import ResturantCard from "../../components/ResturantCard";
 import ReviewCard from "../../components/ReviewCard";
-import UserSearchCard from "../../components/userSearchCard";
+import UserSearchCard from "../../components/UserSearchCard";
 import Loader from "../../components/Loader/Loader";
 import "./search.css";
 

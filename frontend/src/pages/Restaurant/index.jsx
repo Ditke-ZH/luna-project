@@ -25,7 +25,9 @@ export default function RestaurantPage() {
   console.log(fetchData);
   const reviews = [fetchData?.restaurant_reviews];
 
-  const filterReviews = (e) => {};
+  const filterReviews = e => {
+    "";
+  };
 
   return (
     <article className="RestaurantPageDiv">
@@ -37,7 +39,7 @@ export default function RestaurantPage() {
           <div className="restaurant-title-rating">
             <div>
               <h1>{fetchData.name}</h1>
-              {fetchData.categories?.map((item) => <p>{item}</p>) || (
+              {fetchData.categories?.map(item => <p>{item}</p>) || (
                 <p>Unknown</p>
               )}
               <StarRating
