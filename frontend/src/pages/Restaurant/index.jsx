@@ -37,7 +37,7 @@ export default function RestaurantPage() {
           <div className="restaurant-title-rating">
             <div>
               <h1>{fetchData.name}</h1>
-              {fetchData.categories?.map((item) => <p>{item}</p>) || (
+              {fetchData.categories?.map((item) => <p>{item.name}</p>) || (
                 <p>Unknown</p>
               )}
               <StarRating

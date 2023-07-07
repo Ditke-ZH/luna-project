@@ -70,7 +70,7 @@ const UserProfile = () => {
                     <div className="user-img-menu-container">
                         <div className="user-image-container">
                             <img className="user-image" src={user?.profile_picture ? user.profile_picture : profilePicture} alt="user-profile-picture"/>
-                            <UserProfileMenu onItemClick={handleMenuItemClick}/>
+                            <UserProfileMenu onItemClick={handleMenuItemClick} user={user}/>
                         </div>
                     </div>
                     <div className="user-info-reviews">
