@@ -4,6 +4,7 @@ import StarRating from "../../components/StarRating";
 import Button from "../../components/Button/Button.jsx";
 import {useNavigate, useParams} from "react-router-dom"
 import {axiosLuna} from "../../axios/axiosInstance.js";
+import {useSelector} from "react-redux";
 
 const NewReview = () => {
 
@@ -13,16 +14,25 @@ const NewReview = () => {
     const [ratingMissing, setRatingMissing] = useState(false)
     const [reviewMissing, setReviewMissing] = useState(false)
 
+    const access_token = useSelector((state) => state.user.accessToken);
     const navigate = useNavigate()
     const { restaurantId } = useParams()
+
     const InputPlaceholder = "Your review helps others learn about great local businesses. " +
         "Please don't review this business if you received a freebie for writing this review, " +
         "or if you're connected in any way to the owner or employees."
-
     useEffect(() => {
         const fetchRestaurantData = async () => {
+
+      let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
             try {
-                const response = await axiosLuna.get(`/restaurants/${restaurantId}/`);
+                const response = await axiosLuna.get(`/restaurants/${restaurantId}/`, config);
                 console.log(response.data)
                 setRestaurant(response.data);
             } catch (error) {
@@ -38,8 +48,16 @@ const NewReview = () => {
                 "text_content": review,
                 "rating": rating
             }
+
+      let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
         try {
-            const response = await axiosLuna.post(`/reviews/new/${restaurantId}/`, data);
+            const response = await axiosLuna.post(`/reviews/new/${restaurantId}/`, data, config);
             console.log(response.data)
             navigate(`/search/restaurants/${restaurantId}`)
         } catch (error) {

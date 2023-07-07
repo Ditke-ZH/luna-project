@@ -1,13 +1,26 @@
 import React, {useEffect, useState} from "react";
 import "./UserProfileComments.css";
 import {axiosLuna} from "../../../axios/axiosInstance.js";
+import {useSelector} from "react-redux";
 
 
 const UserProfileComments = () => {
     const [comments, setComments] = useState([])
-    const fetchCommentsData = async () => {
+    const access_token = useSelector((state) => state.user.accessToken);
+
+    useEffect(() => {
+        const fetchCommentsData = async () => {
+
+      let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
+
         try {
-            const response = await axiosLuna.get('/review/comment/1/');
+            const response = await axiosLuna.get('/review/comment/1/', config);
             console.log(response, '>>> Comments line11')
             setComments(response.data);
             console.log(response.data, '>>> Comments line13')
@@ -16,7 +29,6 @@ const UserProfileComments = () => {
         }
     };
 
-    useEffect(() => {
         fetchCommentsData();
     }, []);
 

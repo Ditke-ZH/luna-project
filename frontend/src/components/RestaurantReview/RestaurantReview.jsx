@@ -5,14 +5,24 @@ import like from "../../assets/icons/like.svg";
 import "./RestaurantReview.css";
 import { axiosLuna } from "../../axios/axiosInstance";
 import StarRating from "../StarRating";
+import {useSelector} from "react-redux";
 
 export default function RestaurantReview({ restaurantData }) {
   const { resturantId } = useParams();
   const [fetchData, setFetchData] = useState([]);
+    const access_token = useSelector((state) => state.user.accessToken);
 
   useEffect(() => {
     const getFetchData = async () => {
-      const res = await axiosLuna.get(`/restaurants/${resturantId}`);
+      let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
+
+      const res = await axiosLuna.get(`/restaurants/${resturantId}`, config);
       const data = res?.data;
       setFetchData(data);
     };

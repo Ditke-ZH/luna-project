@@ -42,9 +42,12 @@ const Layout = () => {
 
   useEffect(() => {
     if (access_token) {
-      // const config = { headers: { Authorization: `Bearer ${access_token}` } };
+      const config = {
+          headers: { Authorization: `Bearer ${access_token}`},
+          "Content-Type": "application/json",
+      };
       axiosLuna
-        .get("/users/me/")
+        .get("/users/me/", config)
         .then((res) => {
           dispatch(
             setEmail({email: res.data.email})
@@ -57,11 +60,17 @@ const Layout = () => {
   }, [access_token, dispatch]);
 
 
-
     useEffect(() => {
     const fetchUserDetails = async () => {
+        let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
       try {
-        const res = await axiosLuna.get("/users/");
+        const res = await axiosLuna.get("/users/", config);
         console.log(res.data);
         const loggedUser = res.data?.find(
           item => item.email === userLoggedInEmail
