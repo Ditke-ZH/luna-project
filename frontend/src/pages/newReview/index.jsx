@@ -39,7 +39,7 @@ const NewReview = () => {
                 "rating": rating
             }
         try {
-            const response = await axiosLuna.post(`/reviews/new/${restaurantId}`, data);
+            const response = await axiosLuna.post(`/reviews/new/${restaurantId}/`, data);
             console.log(response.data)
             navigate(`/search/restaurants/${restaurantId}`)
         } catch (error) {

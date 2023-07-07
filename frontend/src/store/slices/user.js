@@ -26,6 +26,17 @@ const userSlice = createSlice({
     logout: state => {
       state.accessToken = null;
       state.details = null;
+      state.firstName = "";
+      state.lastName= "";
+      state.username= "";
+      state.avatar = "";
+      state.banner = "";
+      state.location = "";
+      state.about = "";
+      state.email = "";
+      state.phone = "";
+      state.loading = false;
+      state.error = null;
     },
     loadUserDetails: (state, action) => {
       state.details = action.payload;
