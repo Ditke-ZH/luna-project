@@ -42,7 +42,6 @@ const UserProfile = () => {
                 console.log(response, '>>> User line23')
                 setUser(response.data);
                 console.log(response.data, '>>> User line26')
-                console.log(response.data.profile_picture, '>>> User line27')
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }

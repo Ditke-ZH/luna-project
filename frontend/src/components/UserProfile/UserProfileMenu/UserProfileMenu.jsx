@@ -7,6 +7,7 @@ import ReviewSvg from '../../../assets/icons/star.svg'
 
 const UserProfileMenu = ({ onItemClick }) => {
 
+
     return (
     <div className="user-profile-menu-container">
       <div className="user-profile-menu-list-container">
