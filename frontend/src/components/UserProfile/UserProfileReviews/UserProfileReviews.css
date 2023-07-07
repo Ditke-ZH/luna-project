@@ -4,23 +4,24 @@
     flex-direction: column;
     align-content: baseline;
     justify-content: center;
-    width: 30rem;
     /*border: 2px blue solid;*/
     color: black;
-    margin-top: 8%;
-    margin-left: -3%;
-    padding-top: 4%;
-    padding-left: 3%;
-    margin-right: -3%;
-    /*margin-right: 10%;*/
+    width: 100%;
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     background-color: var(--white-luna);
+    border-right: solid 1px var(--light-grey);
+}
+
+.user-bottom-page-part{
+    display: flex;
 }
 
 .user-profile-reviews-title{
     margin-top: 0.2%;
-    margin-bottom: 6%;
+    padding-bottom: 6%;
     /*border: 2px solid fuchsia;*/
-
 }
 
 .user-profile-review-name-datetime {
@@ -34,7 +35,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
 }
 
 .user-profile-review-name{
@@ -62,21 +62,9 @@
 /* review star styling */
 .star-container {
   display: inline-block;
-    margin-bottom: 3%;
+  margin-bottom: 3%;
   font-size: 0; /* Remove white space between div elements */
 
 }
 
 
-.star-filled,
-.star-unfilled {
-  display: inline-block;
-  width: 20px; /* Adjust the size of the stars as desired */
-  height: 20px; /* Adjust the size of the stars as desired */
-  background-image: url('../../assets/icons/star.svg'); /* Path to the image for filled star */
-  background-size: cover; /* Adjust as needed */
-}
-
-.star-unfilled {
-  background-image: url('../../assets/icons/star.svg'); /* Path to the image for unfilled star */
-}

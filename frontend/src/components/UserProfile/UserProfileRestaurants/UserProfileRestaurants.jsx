@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import "./UserProfileRestaurants.css";
 import Button from "../../Button/Button.jsx";
 import {axiosLuna} from "../../../axios/axiosInstance.js";
@@ -9,6 +10,11 @@ import {useSelector} from "react-redux";
 const UserProfileRestaurants = () => {
     const [restaurants, setRestaurants] = useState([])
     const access_token = useSelector((state) => state.user.accessToken);
+    const navigate = useNavigate();
+
+    const handleCreateRestaurant = () => {
+    navigate("/new-restaurant");
+    };
 
     useEffect(() => {
         const fetchRestaurantsData = async () => {
@@ -44,7 +50,7 @@ const UserProfileRestaurants = () => {
                         <li className="user-profile-restaurants-name">{restaurant.name}</li>
                     </ul>
                     <div className="star-container">
-                        <StarRating />
+                        <StarRating StarRating={restaurants.rating_average} />
                     </div>
                     <div className="user-profile-restaurants-text">
                         <p>{restaurant.description}</p>
@@ -54,7 +60,7 @@ const UserProfileRestaurants = () => {
                 })
             }
             <div className="create-restaurants-button">
-                <Button className="use-restaurant-create-btn">Create Restaurant</Button>
+                <Button className="use-restaurant-create-btn" onClick={handleCreateRestaurant}>Create Restaurant</Button>
             </div>
         </div>
     );
