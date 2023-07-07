@@ -3,13 +3,25 @@ import "./UserProfileRestaurants.css";
 import Button from "../../Button/Button.jsx";
 import {axiosLuna} from "../../../axios/axiosInstance.js";
 import StarRating from "../../StarRating";
+import {useSelector} from "react-redux";
 
 
 const UserProfileRestaurants = () => {
     const [restaurants, setRestaurants] = useState([])
-    const fetchRestaurantsData = async () => {
+    const access_token = useSelector((state) => state.user.accessToken);
+
+    useEffect(() => {
+        const fetchRestaurantsData = async () => {
+
+      let config = null
+        if (access_token) {
+            config = {
+                headers: { Authorization: `Bearer ${access_token}`},
+                "Content-Type": "application/json",
+            };
+        }
         try {
-            const response = await axiosLuna.get('/restaurants/user/1/');
+            const response = await axiosLuna.get('/restaurants/user/1/', config);
             console.log(response, '>>> Restaurant line11')
             setRestaurants(response.data);
             console.log(response.data, '>>> Restaurant line13')
@@ -18,7 +30,6 @@ const UserProfileRestaurants = () => {
         }
     };
 
-    useEffect(() => {
         fetchRestaurantsData();
     }, []);
 
