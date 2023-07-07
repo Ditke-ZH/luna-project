@@ -6,7 +6,7 @@ import {axiosLuna} from "../../../axios/axiosInstance.js";
 const UserProfileEdit = () => {
     return (
         <div className="user-profile-edit-container">
-            <h2 className="user-profile-edit-title">EDIT USERPROFILE</h2>
+            <h2 className="user-profile-edit-title">EDIT USER PROFILE</h2>
             <div className="user-profile-edit-content-container">
                 <div className="user-profile-edit-entry-container">
                     <div className="user-profile-edit-entry-container-username">

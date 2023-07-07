@@ -20,8 +20,6 @@ const UserProfile = () => {
     const { userId } = useParams()
     const handleMenuItemClick = (menu) => {
         setSelectedMenuItem(menu);
-
-
     };
     useEffect(() => {
         const fetchUserData = async () => {
@@ -44,7 +42,6 @@ const UserProfile = () => {
                 console.log(response, '>>> User line23')
                 setUser(response.data);
                 console.log(response.data, '>>> User line26')
-                console.log(response.data.profile_picture, '>>> User line27')
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -54,11 +51,11 @@ const UserProfile = () => {
     }, [location.pathname, userId]);
 
     const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const month = date.toLocaleString("en-US", { month: "long" });
-    const year = date.getFullYear();
-    return `${month} ${year}`;
-  };
+        const date = new Date(dateString);
+        const month = date.toLocaleString("en-US", {month: "long"});
+        const year = date.getFullYear();
+        return `${month} ${year}`;
+    };
 
     return (
         <main className="new-review-page-wrapper">

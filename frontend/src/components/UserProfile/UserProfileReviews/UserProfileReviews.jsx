@@ -45,7 +45,7 @@ const UserProfileReviews = () => {
                             </li>
                         </ul>
                         <div className="star-container">
-                            <StarRating />
+                            <StarRating StarRating={review.rating} />
                         </div>
                         <div className="user-profile-reviews-text">
                             <p>{review.text_content}</p>
