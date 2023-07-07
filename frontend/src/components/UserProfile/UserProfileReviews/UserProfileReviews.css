@@ -4,12 +4,14 @@
     flex-direction: column;
     align-content: baseline;
     justify-content: center;
-    border: 2px blue solid;
+    /*border: 2px blue solid;*/
     color: black;
     width: 100%;
-    padding-top: 2rem;
-    padding-left: 3%;
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     background-color: var(--white-luna);
+    border-right: solid 1px var(--light-grey);
 }
 
 .user-bottom-page-part{

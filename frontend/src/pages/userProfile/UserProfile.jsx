@@ -87,7 +87,7 @@ const UserProfile = () => {
                             {selectedMenuItem === "comments" && <UserProfileComments/>}
                         </div>
                         <div className="about-user">
-                            <div className="about-user-title"><h2>ABOUT {user && user.first_name.toUpperCase()}</h2>
+                            <div className="about-user-title"><h2>ABOUT {user && user.first_name}</h2>
                             </div>
                             <div className="about-location-city">
                                 <h3 className="about-user-h3-headings">Location</h3>
