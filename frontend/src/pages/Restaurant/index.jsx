@@ -25,7 +25,9 @@ export default function RestaurantPage() {
   console.log(fetchData);
   const reviews = [fetchData?.restaurant_reviews];
 
-  const filterReviews = (e) => {};
+  const filterReviews = e => {
+    "";
+  };
 
   return (
     <article className="RestaurantPageDiv">

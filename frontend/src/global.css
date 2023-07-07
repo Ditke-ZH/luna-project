@@ -9,9 +9,9 @@
   --lightBlack-luna: #4c4c4c;
   --link-black: #4a4a4a;
   --body-offWhite: #f8f8f8;
-  --delete-darkRed: #BA0000;
-  --light-grey: #EAEAEA;
-  --review-grey:#7E7E7E;
+  --delete-darkRed: #ba0000;
+  --light-grey: #eaeaea;
+  --review-grey: #7e7e7e;
 }
 
 * {
@@ -30,12 +30,14 @@ body {
   background: var(--body-offWhite);
 }
 main {
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
 /*CommomStyle*/
 
-.page-title {
+.page-title,
+.page-title-active {
   font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -43,7 +45,8 @@ main {
   padding: 20px;
   text-align: center;
 }
-.page-title::after {
+.page-title::after,
+.active-menu::after {
   position: absolute;
   content: "";
   width: 20%;
@@ -57,6 +60,7 @@ main {
   -ms-transform: translate(-50%);
   -o-transform: translate(-50%);
 }
+
 .input-field {
   padding: 0.8rem 1.4rem;
   border: none;

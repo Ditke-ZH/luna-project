@@ -1,7 +1,9 @@
 import LunaLogo from "../../assets/images/luna-logo.svg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 
 import "./header.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/slices/user.js";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/slices/user.js";
 import {useEffect, useState} from "react";
@@ -11,6 +13,7 @@ import {useEffect, useState} from "react";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userIsLoged = useSelector(state => state?.user.email);
   const access_token = useSelector((state) => state.user.accessToken);
   const [MenuItems, SetMenuItems] = useState([])
 
@@ -25,12 +28,15 @@ const Header = () => {
   const handleLogout = e => {
     e.preventDefault();
     dispatch(logout());
+  };
     localStorage.removeItem("refreshToken");
   }
 
   return (
     <header className="headerContainer">
-      <img src={LunaLogo} alt="Luna Logo" />
+      <Link to="/">
+        <img src={LunaLogo} alt="Luna Logo" />
+      </Link>
       <nav className="flexContainer">
         <ul className="flexContainer">
           {MenuItems.map((item, idx) => (
@@ -54,12 +60,20 @@ const Header = () => {
             signup
           </button>
           <button
+            className="header-button-right"
+            onClick={() => {
+              if (userIsLoged) {
+                handleLogout();
+              } else {
+                navigate("/login");
+              }
+            }}
               className="header-button-right"
               onClick={() => {
                 navigate("/login");
               }}
           >
-            login
+            {userIsLoged ? "logout" : "login"}
           </button>
         </div>}
       </nav>
