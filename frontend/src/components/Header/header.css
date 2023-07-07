@@ -35,7 +35,8 @@
   gap: 2px;
 }
 .header-button-left,
-.header-button-right {
+.header-button-right,
+.logout-button {
   font-size: 1rem;
   color: var(--white-luna);
   text-transform: uppercase;
@@ -45,7 +46,8 @@
   cursor: pointer;
 }
 .header-button-left:hover,
-.header-button-right:hover {
+.header-button-right:hover,
+.logout-button:hover {
   background-color: var(--orange-luna-hover);
 }
 .header-button-left {
@@ -61,4 +63,13 @@
   -moz-border-radius: 0px 18px 18px 0px;
   -ms-border-radius: 0px 18px 18px 0px;
   -o-border-radius: 0px 18px 18px 0px;
+}
+
+.logout-button {
+  border-radius: 18px;
+  -webkit-border-radius: 18px;
+  -moz-border-radius: 18px;
+  -ms-border-radius: 18px;
+  -o-border-radius: 18px;
+  padding: 10px 62px;
 }
