@@ -5,9 +5,7 @@ import Button from "../../components/Button/Button";
 import ResturantCard from "../../components/ResturantCard";
 import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useSelector, useDispatch } from "react-redux";
 import { axiosLuna } from "../../axios/axiosInstance";
-import { setAllInformation } from "../../store/slices/user";
 import ImagePlaceHolder from "../../assets/images/resturnat-image-placeholder.jpg";
 import "./home.css";
 import "swiper/css";
@@ -16,25 +14,14 @@ import "swiper/css/pagination";
 
 const Home = () => {
   const [restaurantsData, setRestaurantsData] = useState();
-  const userLoggedInEmail = useSelector(state => state.user?.email);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [searchString, setSearchString] = useState("");
-  //const [favRestaurants, setFavRestaurants] = useState([]);
-
-  /*  useEffect(() => {
-    const getFetchData = async () => {
-      const res = await axiosLuna.get(`/home`);
-      const data = res?.data;
-      setFavRestaurants(data);
-    };
-    getFetchData();
-  }, []); */
 
   const handelSearch = e => {
     e.preventDefault();
     navigate(`/search/??type=restaurants&search_string=${searchString}`);
   };
+
   const onClickHandler = id => {
     navigate(`search/restaurants/${id}`);
     console.log("clicked");
@@ -42,45 +29,11 @@ const Home = () => {
 
   useEffect(() => {
     axiosLuna
-      .get("/restaurants/")
+      .get("/home/")
       .then(res => setRestaurantsData(res.data))
       .catch(err => console.log(err.message));
   }, []);
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const res = await axiosLuna.get("/users/");
-        console.log(res.data);
-        const loggedUser = res.data?.find(
-          item => item.email === userLoggedInEmail
-        );
-        console.log(loggedUser, "loggeduser Email");
-        if (loggedUser) {
-          console.log(loggedUser, "loggeduser Email");
-          dispatch(
-            setAllInformation({
-              firstName: loggedUser.first_name,
-              lastName: loggedUser.last_name,
-              username: loggedUser.username,
-              avatar: loggedUser.profile_picture,
-              banner: "",
-              location: loggedUser.location,
-              about: "",
-              phone: loggedUser.user_phone,
-              email: loggedUser.email,
-            })
-          );
-        }
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-
-    if (userLoggedInEmail) {
-      fetchUserDetails();
-    }
-  }, [dispatch, userLoggedInEmail]);
   return (
     <>
       <article className="home-hero-section">
