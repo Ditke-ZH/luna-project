@@ -35,14 +35,16 @@ const Header = () => {
           ))}
         </ul>
         <div className="header-buttons-container">
-          <button
-            className="header-button-left"
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            signup
-          </button>
+          {!userIsLoged && (
+            <button
+              className="header-button-left"
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+              signup
+            </button>
+          )}
           <button
             className="header-button-right"
             onClick={() => {

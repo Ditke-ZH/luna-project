@@ -3,7 +3,10 @@
   justify-content: space-between;
   padding: 20px;
   background: var(--white-luna);
-  position: relative;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
 }
 
 .footer-pages-menu {
