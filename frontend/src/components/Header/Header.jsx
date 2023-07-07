@@ -46,13 +46,11 @@ const Header = () => {
           <button
             className="header-button-right"
             onClick={() => {
-              () => {
-                if (userIsLoged) {
-                  handleLogout();
-                } else {
-                  navigate("/login");
-                }
-              };
+              if (userIsLoged) {
+                handleLogout();
+              } else {
+                navigate("/login");
+              }
             }}
           >
             {userIsLoged ? "logout" : "login"}
