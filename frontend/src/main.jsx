@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/signUp/Signup";
 import SignIn from "./pages/login/SignIn";
 import NewReview from "./pages/newReview/NewReview.jsx";
+import NewRestaurant from "./pages/newRestaurant/NewRestaurant.jsx";
 import UserProfile from "./pages/userProfile/UserProfile.jsx";
 import RestaurantPage from "./pages/Restaurant";
 import "./global.css";
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/search/users/:userId" element={<UserProfile />}/>
             <Route path="/profile" element={<UserProfile />}/>
             <Route path="/new-review" element={<NewReview />}/>
+            <Route path="/new-restaurant" element={<NewRestaurant />}/>
             <Route
               path="search/restaurants/:resturantId"
               element={<RestaurantPage />}
