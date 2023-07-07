@@ -1,5 +1,5 @@
 import "./restaurantCard.css";
-import StarRating from "../StarRating/indx";
+import StarRating from "../StarRating";
 import {useNavigate} from "react-router-dom";
 
 const ResturantCard = ({

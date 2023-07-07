@@ -4,7 +4,7 @@ import profilePicture from "../../assets/images/profile-picture.png";
 import like from "../../assets/icons/like.svg";
 import "./RestaurantReview.css";
 import { axiosLuna } from "../../axios/axiosInstance";
-import StarRating from "../../components/StarRating/indx";
+import StarRating from "../StarRating";
 
 export default function RestaurantReview({ restaurantData }) {
   const { resturantId } = useParams();
