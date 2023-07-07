@@ -25,7 +25,6 @@ const SignIn = () => {
             const accessToken = res.data.access;
             console.log(refreshToken)
             localStorage.setItem("refreshToken", refreshToken);
-            localStorage.setItem("accessToken", accessToken);
             setErrorMessage(null);
             dispatch(login(accessToken));
             dispatch(emailAction({ email: email }));

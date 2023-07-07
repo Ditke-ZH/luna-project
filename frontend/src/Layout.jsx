@@ -20,8 +20,6 @@ const Layout = () => {
         })
         .then((response) => {
           dispatch(login(response.data.access));
-          const accessToken = response.data.access;
-            localStorage.setItem("accessToken", accessToken);
             if (response.data.refresh) {
                 const newRefreshToken = response.data.refresh;
                 localStorage.setItem("refreshToken", newRefreshToken);
@@ -32,7 +30,6 @@ const Layout = () => {
           console.error(error);
 
           localStorage.removeItem("refreshToken");
-          localStorage.removeItem("accessToken");
           dispatch(logout());
         });
     } else {
